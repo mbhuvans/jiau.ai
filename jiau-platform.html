@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JiaU.ai – AI-powered Education Platform</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --blue-dark:#0f2540;--blue-mid:#1e5799;--blue:#2d6a9f;--blue-light:#4a9eda;
+  --blue-pale:#d6e8f7;--blue-bg:#eaf4fc;--green:#2e8b57;--orange:#d4700a;
+  --white:#fff;--gray:#f4f7fb;--border:#c8d4e0;--text:#1a2633;--text-mid:#3a5068;
+  --nav-h:60px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:var(--text);background:#fff;}
+
+/* ══════════ NAV ══════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--nav-h);
+  background:rgba(15,37,64,0.96);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#1e5799,#4a9eda);display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.nav-logo-text{font-size:1.1rem;font-weight:800;color:#fff;letter-spacing:-0.3px;}
+.nav-logo-text span{color:#5ab4f0;}
+.nav-links{display:flex;gap:4px;}
+.nav-link{
+  padding:7px 16px;border-radius:7px;font-size:0.82rem;font-weight:600;
+  color:rgba(255,255,255,0.65);text-decoration:none;transition:all 0.2s;
+  border:1px solid transparent;
+}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.08);}
+.nav-link.active{color:#fff;background:rgba(74,158,218,0.18);border-color:rgba(74,158,218,0.3);}
+.nav-pill{
+  font-size:0.72rem;font-weight:700;padding:4px 12px;border-radius:20px;
+  background:linear-gradient(135deg,#1e5799,#4a9eda);color:#fff;
+  border:none;cursor:pointer;transition:all 0.2s;
+}
+.nav-pill:hover{filter:brightness(1.15);}
+
+/* ══════════ HERO ══════════ */
+.hero{
+  padding:calc(var(--nav-h) + 60px) 24px 70px;
+  background:linear-gradient(160deg,#0f2540 0%,#1a3a5c 55%,#0d3020 100%);
+  text-align:center;position:relative;overflow:hidden;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(74,158,218,0.06) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(74,158,218,0.06) 1px,transparent 1px);
+  background-size:44px 44px;
+  animation:gridDrift 18s linear infinite;
+}
+@keyframes gridDrift{to{background-position:44px 44px;}}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:6px 16px;border-radius:20px;margin-bottom:22px;
+  background:rgba(74,158,218,0.12);border:1px solid rgba(74,158,218,0.3);
+  font-size:0.78rem;font-weight:600;color:#7fcef5;letter-spacing:0.3px;
+}
+.hero h1{
+  font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;
+  letter-spacing:-1px;line-height:1.12;margin-bottom:16px;position:relative;
+}
+.hero h1 span{color:#5ab4f0;}
+.hero p{
+  font-size:1rem;color:rgba(255,255,255,0.6);max-width:580px;
+  margin:0 auto 36px;line-height:1.7;position:relative;
+}
+.hero-cards{
+  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+  margin-bottom:48px;position:relative;
+}
+.hero-card{
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+  border-radius:12px;padding:14px 20px;text-align:left;min-width:180px;
+  backdrop-filter:blur(8px);
+}
+.hero-card-icon{font-size:1.4rem;margin-bottom:6px;}
+.hero-card-label{font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:3px;}
+.hero-card-value{font-size:0.88rem;font-weight:600;color:rgba(255,255,255,0.85);}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;}
+.cta{
+  padding:13px 28px;border-radius:10px;font-size:0.88rem;font-weight:700;
+  text-decoration:none;transition:all 0.22s;display:inline-flex;align-items:center;gap:8px;
+}
+.cta-primary{background:#1e5799;color:#fff;border:2px solid #2d6a9f;}
+.cta-primary:hover{background:#2d6a9f;transform:translateY(-2px);box-shadow:0 8px 24px rgba(30,87,153,0.4);}
+.cta-secondary{background:transparent;color:rgba(255,255,255,0.8);border:2px solid rgba(255,255,255,0.2);}
+.cta-secondary:hover{background:rgba(255,255,255,0.07);transform:translateY(-2px);}
+
+/* ══════════ SECTION WRAPPER ══════════ */
+.section{padding:64px 20px 72px;}
+.section-alt{background:#f4f7fb;}
+.section-inner{max-width:1280px;margin:0 auto;}
+.section-head{text-align:center;margin-bottom:40px;}
+.section-eyebrow{
+  display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--blue);margin-bottom:10px;
+  padding:4px 12px;background:var(--blue-bg);border-radius:20px;border:1px solid var(--border);
+}
+.section-title{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;color:var(--blue-dark);letter-spacing:-0.5px;}
+.section-sub{color:var(--text-mid);font-size:0.9rem;margin-top:8px;max-width:560px;margin-left:auto;margin-right:auto;}
+.section-divider{
+  height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);
+  margin:0;
+}
+
+/* ══════════════════════════════════════════════
+   ARCHITECTURE DIAGRAM
+══════════════════════════════════════════════ */
+:root{
+  --layer-radius:12px;
+  --shadow:0 2px 12px rgba(26,58,92,0.09);
+  --shadow-hover:0 6px 24px rgba(26,58,92,0.17);
+}
+.arch-controls{display:flex;gap:10px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;}
+.arch-btn{
+  padding:9px 20px;border-radius:8px;border:none;cursor:pointer;
+  font-family:'Inter',sans-serif;font-size:0.84rem;font-weight:600;
+  transition:all 0.2s;display:flex;align-items:center;gap:7px;
+}
+.arch-btn-primary{background:var(--blue);color:#fff;}
+.arch-btn-primary:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 4px 14px rgba(45,106,159,0.4);}
+.arch-btn-secondary{background:#fff;color:var(--blue-dark);border:1.5px solid var(--border);}
+.arch-btn-secondary:hover:not(:disabled){background:var(--gray);}
+.arch-btn:disabled{opacity:0.45;cursor:not-allowed;}
+
+.arch-canvas{max-width:1240px;margin:0 auto;position:relative;display:grid;grid-template-columns:50px 1fr 86px;gap:0;}
+
+/* Left icons */
+.arch-icons{display:flex;flex-direction:column;align-items:center;padding-top:4px;}
+.arch-icon{width:40px;height:40px;border-radius:50%;background:#fff;border:2px solid var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;box-shadow:0 2px 8px rgba(74,158,218,0.18);position:relative;z-index:2;transition:transform 0.3s,box-shadow 0.3s;}
+.arch-icon.active{transform:scale(1.2);box-shadow:0 0 0 4px rgba(74,158,218,0.28),0 4px 14px rgba(74,158,218,0.38);}
+.arch-spacer{width:2px;background:var(--blue-light);flex:1;min-height:18px;position:relative;overflow:visible;}
+.arch-fp{width:8px;height:8px;border-radius:50%;background:var(--blue-light);box-shadow:0 0 6px var(--blue-light);position:absolute;left:50%;transform:translateX(-50%);opacity:0;top:0;}
+
+/* Layers */
+.arch-layers{display:flex;flex-direction:column;gap:9px;padding-left:10px;}
+.arch-layer{
+  background:#fff;border-radius:var(--layer-radius);border:1.5px solid var(--border);
+  padding:13px 15px;box-shadow:var(--shadow);
+  opacity:0;transform:translateX(-24px);
+  transition:box-shadow 0.3s,border-color 0.3s,transform 0.3s;position:relative;overflow:hidden;
+}
+.arch-layer.visible{opacity:1;transform:translateX(0);}
+.arch-layer:hover{box-shadow:var(--shadow-hover);}
+.arch-layer.active-layer{border-color:var(--blue-light)!important;box-shadow:0 0 0 3px rgba(74,158,218,0.22),var(--shadow-hover)!important;}
+.arch-layer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--layer-radius) var(--layer-radius) 0 0;background:var(--la,var(--blue));transform:scaleX(0);transform-origin:left;transition:transform 0.5s ease;}
+.arch-layer.active-layer::before{transform:scaleX(1);}
+.arch-l0{--la:#4a9eda;} .arch-l1{--la:#2d6a9f;} .arch-l2{--la:#1a3a5c;border:2px solid #2d6a9f;background:#f0f6fc;}
+.arch-l3{--la:#5b9bd5;} .arch-l4{--la:#3a7ab8;} .arch-l5{--la:#e05c00;}
+.arch-l6{--la:#2e8b57;} .arch-l7{--la:#8b4513;}
+
+.arch-lhdr{display:flex;align-items:baseline;gap:8px;margin-bottom:9px;}
+.arch-ltitle{font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.3px;color:var(--blue-dark);}
+.arch-ltech{font-size:0.7rem;color:var(--text-mid);font-style:italic;}
+.arch-chips{display:flex;flex-wrap:wrap;gap:5px;}
+.arch-chip{
+  background:var(--blue-bg);border:1px solid var(--border);border-radius:7px;
+  padding:5px 9px;font-size:0.72rem;font-weight:500;color:var(--blue-dark);
+  cursor:default;transition:all 0.18s;position:relative;
+}
+.arch-chip:hover{background:var(--blue-pale);border-color:var(--blue-light);transform:translateY(-2px);box-shadow:0 3px 10px rgba(74,158,218,0.18);}
+.arch-user-chip{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 12px;min-width:85px;}
+.arch-user-icon{font-size:1.3rem;}
+.arch-pipeline{display:flex;align-items:stretch;flex-wrap:wrap;gap:0;margin-top:6px;}
+.arch-ps{flex:1;min-width:110px;background:#fff;border:1.5px solid var(--border);border-radius:7px;padding:9px;font-size:0.71rem;color:var(--blue-dark);position:relative;transition:all 0.3s;}
+.arch-ps:hover{background:var(--blue-bg);border-color:var(--blue-light);}
+.arch-ps.active-step{background:var(--blue-pale);border-color:var(--blue);box-shadow:0 0 0 2px rgba(45,106,159,0.18);}
+.arch-ps strong{display:block;font-size:0.73rem;margin-bottom:3px;}
+.arch-parr{display:flex;align-items:center;padding:0 3px;color:var(--blue);font-size:1rem;font-weight:700;align-self:center;flex-shrink:0;}
+.arch-rbadge{font-size:0.65rem;font-weight:600;padding:2px 7px;border-radius:4px;border:1px solid;}
+.arch-rbadges{display:flex;gap:5px;margin-bottom:7px;flex-wrap:wrap;}
+.rb-s{background:#e8f4fd;color:#1a6aa0;border-color:#9dd0f0;}
+.rb-t{background:#e8f5ee;color:#1e6e3f;border-color:#80c9a0;}
+.rb-p{background:#fff3e8;color:#8a4a00;border-color:#f0b87a;}
+.rb-a{background:#f5ece8;color:#8a3a00;border-color:#e0a880;}
+
+/* Right arrows (architecture) */
+.arch-arrows{display:flex;flex-direction:column;align-items:center;padding-left:8px;position:relative;}
+.arch-sa{width:34px;height:calc(100% - 18px);position:absolute;border-radius:17px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:7px 0;}
+.arch-sa-or{right:6px;top:9px;background:rgba(212,112,10,0.07);border:2px solid var(--orange);}
+.arch-sa-gr{right:46px;top:9px;background:rgba(46,139,87,0.07);border:2px solid var(--green);}
+.arch-slabel{writing-mode:vertical-rl;font-size:0.63rem;font-weight:600;letter-spacing:0.4px;white-space:nowrap;}
+.arch-slabel-or{color:var(--orange);}
+.arch-slabel-gr{color:var(--green);}
+.arch-ahead{font-size:0.95rem;}
+.arch-ahead-or{color:var(--orange);}
+.arch-ahead-gr{color:var(--green);}
+.arch-ap{width:9px;height:9px;border-radius:50%;position:absolute;left:50%;transform:translateX(-50%);opacity:0;}
+.arch-ap-or{background:var(--orange);box-shadow:0 0 6px var(--orange);bottom:0;}
+.arch-ap-gr-u{background:var(--green);box-shadow:0 0 6px var(--green);bottom:0;}
+.arch-ap-gr-d{background:var(--green);box-shadow:0 0 6px var(--green);top:0;}
+
+/* Arch status bar */
+.arch-status{
+  max-width:1240px;margin:14px auto 0;
+  background:#fff;border-radius:8px;padding:9px 15px;
+  border:1px solid var(--border);box-shadow:var(--shadow);
+  font-size:0.78rem;color:var(--text-mid);
+  display:flex;align-items:center;gap:9px;
+}
+.arch-sdot{width:7px;height:7px;border-radius:50%;background:#ccc;flex-shrink:0;transition:background 0.3s;}
+.arch-sdot.active{background:var(--blue-light);animation:apulse 1s infinite;}
+@keyframes apulse{0%,100%{box-shadow:0 0 0 0 rgba(74,158,218,0.4);}50%{box-shadow:0 0 0 6px rgba(74,158,218,0);}}
+
+/* ══════════════════════════════════════════════
+   SEQUENCE DIAGRAM
+══════════════════════════════════════════════ */
+.seq-tabs{display:flex;gap:8px;margin-bottom:16px;justify-content:center;flex-wrap:wrap;}
+.seq-tab{
+  display:flex;align-items:center;gap:9px;padding:9px 16px;border-radius:10px;
+  border:2px solid transparent;background:#fff;cursor:pointer;transition:all 0.2s;
+  font-family:'Inter',sans-serif;box-shadow:0 1px 5px rgba(0,0,0,0.06);min-width:160px;
+}
+.seq-tab:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,0.1);}
+.seq-tab-icon{font-size:1.4rem;flex-shrink:0;}
+.seq-tab-name{font-size:0.81rem;font-weight:700;color:#1a2633;}
+.seq-tab-sub{font-size:0.68rem;color:#6a8098;margin-top:1px;}
+.seq-tab.ast{border-color:#1a5799;background:#e8f2ff;} .seq-tab.ast .seq-tab-name{color:#1a5799;}
+.seq-tab.ate{border-color:#1a6a40;background:#e6f5ec;} .seq-tab.ate .seq-tab-name{color:#1a6a40;}
+.seq-tab.apr{border-color:#5a1a8a;background:#f0e8f8;} .seq-tab.apr .seq-tab-name{color:#5a1a8a;}
+.seq-tab.aad{border-color:#7a4a00;background:#fdf0e0;} .seq-tab.aad .seq-tab-name{color:#7a4a00;}
+
+.seq-controls{display:flex;gap:8px;justify-content:center;align-items:center;margin-bottom:12px;flex-wrap:wrap;}
+.seq-btn{
+  padding:8px 15px;border-radius:7px;border:none;cursor:pointer;
+  font-family:'Inter',sans-serif;font-size:0.81rem;font-weight:600;
+  transition:all 0.18s;display:flex;align-items:center;gap:5px;
+}
+.seq-btn-p{background:var(--seq-color,#2d6a9f);color:#fff;}
+.seq-btn-p:hover:not(:disabled){filter:brightness(1.12);transform:translateY(-1px);}
+.seq-btn-s{background:#fff;color:#1a3a5c;border:1.5px solid var(--border);}
+.seq-btn-s:hover:not(:disabled){background:#f0f4f8;}
+.seq-btn:disabled{opacity:0.35;cursor:not-allowed;}
+.seq-speed{display:flex;align-items:center;gap:6px;font-size:0.76rem;color:var(--text-mid);}
+.seq-speed input{width:80px;accent-color:var(--seq-color,#2d6a9f);cursor:pointer;}
+.seq-badge-wrap{background:#fff;border:1.5px solid var(--border);border-radius:7px;padding:5px 11px;font-size:0.76rem;color:var(--text-mid);font-weight:600;}
+.seq-flow-badge{
+  display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:20px;
+  font-size:0.76rem;font-weight:700;
+  background:var(--seq-bg,#e8f2ff);color:var(--seq-color,#1a5799);border:1.5px solid var(--seq-color,#1a5799);
+}
+.seq-outer{
+  overflow-x:auto;overflow-y:auto;border-radius:10px;
+  box-shadow:0 4px 24px rgba(26,58,92,0.12);background:#fff;
+  max-height:65vh;border:1.5px solid #dde6ef;
+}
+#seqSvg{display:block;}
+.seq-status{margin-top:9px;text-align:center;font-size:0.77rem;min-height:16px;font-weight:500;color:#2d5070;}
+.seq-legend{display:flex;gap:14px;justify-content:center;margin-top:9px;flex-wrap:wrap;}
+.seq-li{display:flex;align-items:center;gap:5px;font-size:0.69rem;color:var(--text-mid);}
+.seq-ll{width:20px;height:2px;}
+.seq-ld{width:20px;height:0;border-top:2px dashed #2d6a9f;}
+
+/* ══════════ FOOTER ══════════ */
+.footer{
+  background:var(--blue-dark);color:rgba(255,255,255,0.45);
+  text-align:center;padding:32px 20px;font-size:0.76rem;line-height:1.9;
+}
+.footer strong{color:rgba(255,255,255,0.7);}
+.footer-logo{font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:8px;}
+.footer-logo span{color:#5ab4f0;}
+
+/* ══════════ SHARED ANIMS ══════════ */
+@keyframes fadeDown{from{opacity:0;transform:translateY(-14px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+@keyframes archPartUp{0%{bottom:0;opacity:0;}10%{opacity:1;}80%{opacity:1;}100%{bottom:calc(100% - 9px);opacity:0;}}
+@keyframes archPartDn{0%{top:0;opacity:0;}10%{opacity:1;}80%{opacity:1;}100%{top:calc(100% - 9px);opacity:0;}}
+@keyframes archFlow{0%{top:0;opacity:0;}10%{opacity:1;}80%{opacity:1;}100%{top:100%;opacity:0;}}
+@keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
+.shimmer-active{background:linear-gradient(90deg,var(--blue-bg) 25%,var(--blue-pale) 50%,var(--blue-bg) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;}
+
+/* ══════════ ARCH INLINE DETAIL PANELS ══════════ */
+.arch-detail{
+  max-height:0;overflow:hidden;opacity:0;margin-top:0;padding-top:0;
+  border-top:0px solid rgba(74,158,218,0.15);
+  transition:max-height 0.42s ease,opacity 0.32s ease,margin-top 0.32s ease,padding-top 0.32s ease;
+  font-size:0.73rem;line-height:1.52;
+}
+.active-layer .arch-detail{
+  max-height:220px;opacity:1;margin-top:10px;padding-top:9px;
+  border-top:1px solid rgba(74,158,218,0.15);
+}
+.ard-purpose{color:var(--blue-dark);font-weight:500;margin:0 0 6px;font-size:0.74rem;}
+.ard-row{display:flex;gap:7px;margin-bottom:4px;align-items:baseline;}
+.ard-lbl{font-size:0.63rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;
+  color:rgba(26,58,92,0.42);white-space:nowrap;flex-shrink:0;padding-top:1px;}
+.ard-val{color:var(--text-mid);font-size:0.71rem;}
+.ard-note{background:rgba(74,158,218,0.07);border-left:2px solid rgba(74,158,218,0.38);
+  padding:4px 8px;border-radius:0 5px 5px 0;color:var(--blue-dark);
+  font-size:0.69rem;font-style:italic;margin:5px 0 4px;}
+.ard-tech{color:#3a7ab8;font-size:0.68rem;font-style:italic;margin-top:4px;}
+/* Pipeline step inline detail */
+.arch-ps-det{
+  max-height:0;overflow:hidden;opacity:0;margin-top:0;
+  transition:max-height 0.3s ease,opacity 0.25s ease,margin-top 0.25s ease;
+  font-size:0.68rem;color:var(--text-mid);line-height:1.45;
+}
+.active-step .arch-ps-det{max-height:70px;opacity:1;margin-top:5px;}
+.apd-out{color:var(--blue);font-style:italic;font-weight:500;margin-top:3px;}
+
+/* ══════════ TOOLTIP CARD ══════════ */
+#tipCard{
+  position:fixed;z-index:9999;pointer-events:none;
+  background:linear-gradient(145deg,#0c1e33 0%,#112a44 100%);
+  border:1px solid rgba(74,158,218,0.45);border-radius:14px;
+  padding:15px 17px;max-width:295px;min-width:190px;
+  box-shadow:0 14px 44px rgba(0,0,0,0.55),0 0 0 1px rgba(74,158,218,0.08);
+  opacity:0;transition:opacity 0.14s ease;font-family:var(--font);display:none;
+}
+#tipCard.tc-vis{opacity:1;}
+.tc-title{font-size:0.69rem;font-weight:800;text-transform:uppercase;letter-spacing:0.9px;color:#7fcef5;margin-bottom:7px;}
+.tc-purpose{color:rgba(255,255,255,0.9);margin-bottom:0;font-size:0.76rem;line-height:1.5;}
+.tc-lbl{font-size:0.63rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:rgba(255,255,255,0.32);margin-top:9px;margin-bottom:3px;}
+.tc-items{color:rgba(255,255,255,0.66);font-size:0.72rem;line-height:1.55;}
+.tc-note{background:rgba(74,158,218,0.1);border-left:2px solid rgba(74,158,218,0.6);padding:5px 9px;border-radius:0 6px 6px 0;color:rgba(255,255,255,0.72);font-size:0.7rem;font-style:italic;margin-top:9px;line-height:1.45;}
+.tc-tech{color:#4da8e8;font-size:0.69rem;margin-top:8px;font-style:italic;border-top:1px solid rgba(255,255,255,0.08);padding-top:7px;}
+/* Sequence step detail panel */
+#seqDetail{
+  margin-top:8px;padding:0 14px;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  border-radius:8px;font-size:0.73rem;color:rgba(255,255,255,0.68);
+  line-height:1.55;max-height:0;overflow:hidden;
+  transition:max-height 0.32s ease,padding 0.32s ease,opacity 0.32s ease;opacity:0;
+}
+#seqDetail.sd-vis{max-height:120px;padding:9px 14px;opacity:1;}
+.sd-layer{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:rgba(255,255,255,0.35);margin-bottom:3px;}
+</style>
+</head>
+<body>
+
+<!-- ══════════ STICKY NAV ══════════ -->
+<nav class="nav" id="mainNav">
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">🎓</div>
+    <div class="nav-logo-text"><span>JiaU</span>.ai</div>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link active" href="#hero" onclick="setActive(this)">Overview</a>
+    <a class="nav-link" href="#architecture" onclick="setActive(this)">Architecture</a>
+    <a class="nav-link" href="#flows" onclick="setActive(this)">User Flows</a>
+  </div>
+  <button class="nav-pill" onclick="document.getElementById('flows').scrollIntoView({behavior:'smooth'})">Explore Flows →</button>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-badge">🎓 AI-powered Education Platform</div>
+  <h1><span>JiaU.ai</span><br>Platform Architecture</h1>
+  <p>A role-aware, pedagogically grounded, governance-first AI education platform serving students, teachers, parents, and school administrators.</p>
+  <div class="hero-cards">
+    <div class="hero-card"><div class="hero-card-icon">🏗️</div><div class="hero-card-label">Layers</div><div class="hero-card-value">8 Platform Layers</div></div>
+    <div class="hero-card"><div class="hero-card-icon">👥</div><div class="hero-card-label">User Roles</div><div class="hero-card-value">4 Distinct Flows</div></div>
+    <div class="hero-card"><div class="hero-card-icon">🔒</div><div class="hero-card-label">Safety</div><div class="hero-card-value">Governance-first</div></div>
+    <div class="hero-card"><div class="hero-card-icon">🤖</div><div class="hero-card-label">AI Core</div><div class="hero-card-value">Azure OpenAI</div></div>
+  </div>
+  <div class="hero-ctas">
+    <a class="cta cta-primary" href="#architecture" onclick="document.getElementById('architecture').scrollIntoView({behavior:'smooth'});return false;">🏗️ View Architecture</a>
+    <a class="cta cta-secondary" href="#flows" onclick="document.getElementById('flows').scrollIntoView({behavior:'smooth'});return false;">🔄 Explore User Flows</a>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 1: ARCHITECTURE ══════════ -->
+<section class="section section-alt" id="architecture">
+<div class="section-inner">
+  <div class="section-head">
+    <div class="section-eyebrow">Platform Stack</div>
+    <div class="section-title">Solution Architecture</div>
+    <div class="section-sub">Eight layers from the user experience down to the data layer — each with a specific role in delivering safe, personalised, curriculum-aligned AI.</div>
+  </div>
+
+  <div class="arch-controls">
+    <button class="arch-btn arch-btn-secondary" id="archBtnPrev" onclick="archNav(-1)" disabled>◀ Prev</button>
+    <button class="arch-btn arch-btn-primary" id="archBtnPlay" onclick="archStartFlow()">▶ Animate</button>
+    <button class="arch-btn arch-btn-secondary" id="archBtnNext" onclick="archNav(1)">Next ▶</button>
+    <button class="arch-btn arch-btn-secondary" onclick="archReset()">↺ Reset</button>
+  </div>
+
+  <div class="arch-canvas">
+    <!-- Left icons -->
+    <div class="arch-icons" id="archIcons">
+      <div class="arch-icon" id="ai-0">🧠</div><div class="arch-spacer" id="as-0"><div class="arch-fp" id="af-0"></div></div>
+      <div class="arch-icon" id="ai-1">🤖</div><div class="arch-spacer" id="as-1"><div class="arch-fp" id="af-1"></div></div>
+      <div class="arch-icon" id="ai-2">⚙️</div><div class="arch-spacer" id="as-2"><div class="arch-fp" id="af-2"></div></div>
+      <div class="arch-icon" id="ai-3">🔍</div><div class="arch-spacer" id="as-3"><div class="arch-fp" id="af-3"></div></div>
+      <div class="arch-icon" id="ai-4">✨</div><div class="arch-spacer" id="as-4"><div class="arch-fp" id="af-4"></div></div>
+      <div class="arch-icon" id="ai-5">🔒</div><div class="arch-spacer" id="as-5"><div class="arch-fp" id="af-5"></div></div>
+      <div class="arch-icon" id="ai-6">📊</div><div class="arch-spacer" id="as-6"><div class="arch-fp" id="af-6"></div></div>
+      <div class="arch-icon" id="ai-7">🗄️</div>
+    </div>
+
+    <!-- Layers -->
+    <div class="arch-layers">
+      <!-- L0: Experience -->
+      <div class="arch-layer arch-l0" id="al-0" data-tipid="l0">
+        <div class="arch-lhdr"><span class="arch-ltitle">Experience Layer</span><span class="arch-ltech">React / Next.js / Power BI</span></div>
+        <div class="arch-chips">
+          <div class="arch-chip arch-user-chip"><span class="arch-user-icon">👤</span><span style="font-size:0.68rem;font-weight:600;">Student</span></div>
+          <div class="arch-chip arch-user-chip"><span class="arch-user-icon">👩‍🏫</span><span style="font-size:0.68rem;font-weight:600;">Teacher</span></div>
+          <div class="arch-chip arch-user-chip"><span class="arch-user-icon">👨‍👩‍👦</span><span style="font-size:0.68rem;font-weight:600;">Parent</span></div>
+          <div class="arch-chip arch-user-chip"><span class="arch-user-icon">🏫</span><span style="font-size:0.68rem;font-weight:600;">School Admin</span></div>
+        </div>
+        <div class="arch-detail">
+          <div class="ard-purpose">Provides role-specific interfaces and dashboards for every stakeholder.</div>
+          <div class="ard-row"><span class="ard-lbl">How</span><span class="ard-val">Users interact via web apps or dashboards. Inputs are captured and forwarded to the orchestration layer; AI outputs are rendered back in the UI.</span></div>
+          <div class="ard-tech">⚙ React / Next.js (web apps) · Power BI (analytics dashboards)</div>
+        </div>
+      </div>
+      <!-- L1: Super Agent -->
+      <div class="arch-layer arch-l1" id="al-1" data-tipid="l1">
+        <div class="arch-lhdr"><span class="arch-ltitle">Super Agent / Orchestration Layer</span><span class="arch-ltech">LangGraph / Entra ID</span></div>
+        <div class="arch-chips">
+          <div class="arch-chip">Identity &amp; Role Validation</div>
+          <div class="arch-chip"><strong style="font-size:0.72rem">Role Context Engine</strong></div>
+          <div class="arch-chip">Intent Classification</div>
+          <div class="arch-chip"><strong style="font-size:0.72rem">Curriculum Control Engine</strong></div>
+          <div class="arch-chip">Policy &amp; Permission Checks</div>
+          <div class="arch-chip">Agent Routing</div>
+        </div>
+        <div class="arch-detail">
+          <div class="ard-purpose">Acts as the control plane, governing every incoming request before any processing begins.</div>
+          <div class="ard-row"><span class="ard-lbl">How</span><span class="ard-val">Validates identity &amp; role → classifies intent → checks curriculum alignment → applies policy constraints → routes to the correct processing path.</span></div>
+          <div class="ard-tech">⚙ LangGraph (agent orchestration) · Microsoft Entra ID / Auth0 (identity &amp; access)</div>
+        </div>
+      </div>
+      <!-- L2: Decision Intelligence -->
+      <div class="arch-layer arch-l2" id="al-2" data-tipid="l2">
+        <div class="arch-lhdr"><span class="arch-ltitle">Role-Aware Decision Intelligence Layer</span><span class="arch-ltech">Python Decision Engine / Rules Logic</span></div>
+        <div class="arch-rbadges">
+          <span class="arch-rbadge rb-s">Students: Adaptive learning &amp; scaffolding</span>
+          <span class="arch-rbadge rb-t">Teachers: Lesson planning &amp; insights</span>
+          <span class="arch-rbadge rb-p">Parents: Progress summaries &amp; guidance</span>
+          <span class="arch-rbadge rb-a">Admins: Analytics &amp; intervention oversight</span>
+        </div>
+        <div class="arch-pipeline">
+          <div class="arch-ps" id="ap-0" data-tipid="ap-0"><strong>Learner State Model</strong>Understands student, class, or cohort state<div class="arch-ps-det"><div>Analyses current mastery, past errors, progress &amp; engagement patterns.</div><div class="apd-out">→ Output: A structured picture of where the learner is right now</div></div></div>
+          <div class="arch-parr">→</div>
+          <div class="arch-ps" id="ap-1" data-tipid="ap-1"><strong>Instructional Strategy Engine</strong>Decides learning or support approach<div class="arch-ps-det"><div>Selects teaching method: explain · guided learning · practice · remediate · challenge.</div><div class="apd-out">→ Output: Teaching approach directive for this interaction</div></div></div>
+          <div class="arch-parr">→</div>
+          <div class="arch-ps" id="ap-2" data-tipid="ap-2"><strong>Adaptive Personalisation Engine</strong>Decides next topic, difficulty, or support path<div class="arch-ps-det"><div>Determines topic focus, difficulty level &amp; progression path for this individual.</div><div class="apd-out">→ Output: Personalised learning parameters for the prompt</div></div></div>
+          <div class="arch-parr">→</div>
+          <div class="arch-ps" id="ap-3" data-tipid="ap-3"><strong>Pedagogical Scaffolding Engine</strong>hint → guided → partial → full<div class="arch-ps-det"><div>Controls support level: hint-based → step-by-step → partial solution → full explanation.</div><div class="apd-out">→ Output: Scaffolding directive that shapes how much the model reveals</div></div></div>
+          <div class="arch-parr">→</div>
+          <div class="arch-ps" id="ap-4" data-tipid="ap-4"><strong>Intervention &amp; Recommendation Engine</strong>Decides when to escalate or recommend<div class="arch-ps-det"><div>Monitors for persistent errors, disengagement &amp; performance drops.</div><div class="apd-out">→ Output: Teacher/parent notification or escalation alert</div></div></div>
+        </div>
+        <div class="arch-detail">
+          <div class="ard-note">Key differentiator: the model is NOT the decision-maker. This layer determines what and how to teach before any AI generation occurs.</div>
+          <div class="ard-row"><span class="ard-lbl">How</span><span class="ard-val">Evaluates learner state → selects instructional strategy → adapts difficulty → controls scaffolding → triggers interventions when needed.</span></div>
+          <div class="ard-tech">⚙ Python decision engine · Rules engine / business logic · Optional ML for learner state prediction</div>
+        </div>
+      </div>
+      <!-- L3: RAG -->
+      <div class="arch-layer arch-l3" id="al-3" data-tipid="l3">
+        <div class="arch-lhdr"><span class="arch-ltitle">RAG + Prompt Orchestration Layer</span><span class="arch-ltech">Azure AI Search / Prompt Templates</span></div>
+        <div class="arch-chips">
+          <div class="arch-chip">Curriculum knowledge retrieval</div>
+          <div class="arch-chip">Question bank and worked examples</div>
+          <div class="arch-chip">Context assembly</div>
+          <div class="arch-chip">Prompt builder <span style="font-size:0.65rem">(role + learner + pedagogy + safety)</span></div>
+        </div>
+        <div class="arch-detail">
+          <div class="ard-purpose">Grounds all generation in trusted, curriculum-aligned content.</div>
+          <div class="ard-row"><span class="ard-lbl">How</span><span class="ard-val">Retrieves curriculum content, question banks &amp; worked examples → filters by grade &amp; relevance → assembles a structured prompt combining role context, learner state, pedagogy rules &amp; safety constraints.</span></div>
+          <div class="ard-tech">⚙ Azure AI Search (vector + keyword) · Prompt orchestration framework</div>
+        </div>
+      </div>
+      <!-- L4: Model -->
+      <div class="arch-layer arch-l4" id="al-4" data-tipid="l4">
+        <div class="arch-lhdr"><span class="arch-ltitle">Model Layer</span><span class="arch-ltech">Azure OpenAI</span></div>
+        <div class="arch-chips">
+          <div class="arch-chip">Safe base LLM</div>
+          <div class="arch-chip">Fine-tuned education model</div>
+          <div class="arch-chip">Controlled generation</div>
+        </div>
+        <div class="arch-detail">
+          <div class="ard-purpose">Controlled content generation — executes instructions, not autonomous decisions.</div>
+          <div class="ard-row"><span class="ard-lbl">How</span><span class="ard-val">Receives a fully structured prompt and generates within defined constraints. Does NOT independently decide strategy, retrieve knowledge, or control pedagogy.</span></div>
+          <div class="ard-note">The model acts as an execution engine, not a decision-maker — ensuring controlled and predictable behaviour.</div>
+          <div class="ard-tech">⚙ Azure OpenAI (GPT models + embeddings)</div>
+        </div>
+      </div>
+      <!-- L5: Safety -->
+      <div class="arch-layer arch-l5" id="al-5" data-tipid="l5">
+        <div class="arch-lhdr"><span class="arch-ltitle">Safety &amp; Governance Layer</span><span class="arch-ltech">Azure AI Content Safety / Policy Layer</span></div>
+        <div class="arch-chips">
+          <div class="arch-chip">Output moderation</div>
+          <div class="arch-chip">Age appropriateness</div>
+          <div class="arch-chip">Privacy and policy enforcement</div>
+          <div class="arch-chip">Hallucination detection</div>
+        </div>
+        <div class="arch-detail">
+          <div class="ard-purpose">Ensures all outputs are safe, compliant, and age-appropriate before delivery to any user.</div>
+          <div class="ard-row"><span class="ard-lbl">Checks</span><span class="ard-val">Age appropriateness · Policy compliance · Hallucination detection · Content safety screening</span></div>
+          <div class="ard-row"><span class="ard-lbl">How</span><span class="ard-val">Filters model outputs → applies safety rules → blocks or triggers regeneration of non-compliant responses.</span></div>
+          <div class="ard-tech">⚙ Azure AI Content Safety · Custom policy enforcement logic</div>
+        </div>
+      </div>
+      <!-- L6: Analytics -->
+      <div class="arch-layer arch-l6" id="al-6" data-tipid="l6">
+        <div class="arch-lhdr"><span class="arch-ltitle">Analytics &amp; Feedback Loop</span><span class="arch-ltech">Power BI / App Telemetry</span></div>
+        <div class="arch-chips">
+          <div class="arch-chip">Interaction logging</div>
+          <div class="arch-chip">Mastery updates</div>
+          <div class="arch-chip">Performance tracking</div>
+        </div>
+        <div class="arch-detail">
+          <div class="ard-purpose">Closed-loop feedback that continuously improves personalisation over time.</div>
+          <div class="ard-row"><span class="ard-lbl">How</span><span class="ard-val">Captures interactions &amp; engagement → updates mastery metrics → feeds signals back to Decision Intelligence.</span></div>
+          <div class="ard-row"><span class="ard-lbl">Feeds into</span><span class="ard-val">Learner State Model · Personalisation Engine</span></div>
+          <div class="ard-tech">⚙ Power BI (visual dashboards) · Application telemetry &amp; logging</div>
+        </div>
+      </div>
+      <!-- L7: Data -->
+      <div class="arch-layer arch-l7" id="al-7" data-tipid="l7">
+        <div class="arch-lhdr"><span class="arch-ltitle">Data Layer</span><span class="arch-ltech">PostgreSQL + pgvector</span></div>
+        <div class="arch-chips">
+          <div class="arch-chip">Student profiles</div>
+          <div class="arch-chip">Curriculum knowledge base</div>
+          <div class="arch-chip">Question banks</div>
+          <div class="arch-chip">Interaction logs</div>
+          <div class="arch-chip">Vector database</div>
+        </div>
+        <div class="arch-detail">
+          <div class="ard-purpose">Foundational data infrastructure for all platform operations and AI functions.</div>
+          <div class="ard-row"><span class="ard-lbl">How</span><span class="ard-val">Stores structured &amp; unstructured data → supports transactional queries &amp; vector similarity search → maintains learner profiles, curriculum content &amp; interaction history.</span></div>
+          <div class="ard-tech">⚙ PostgreSQL (transactional data) · pgvector (vector similarity search)</div>
+        </div>
+      </div>
+    </div><!-- /arch-layers -->
+
+    <!-- Right arrows -->
+    <div class="arch-arrows">
+      <div style="position:relative;width:100%;height:100%;">
+        <div class="arch-sa arch-sa-or" id="archArrowOr">
+          <span class="arch-ahead arch-ahead-or">↑</span>
+          <span class="arch-slabel arch-slabel-or">Generated Response</span>
+          <div class="arch-ap arch-ap-or" id="archPor"></div>
+        </div>
+        <div class="arch-sa arch-sa-gr" id="archArrowGr" style="right:48px;">
+          <span class="arch-ahead arch-ahead-gr">↑</span>
+          <span class="arch-slabel arch-slabel-gr">Learning Feedback</span>
+          <span class="arch-ahead arch-ahead-gr">↓</span>
+          <div class="arch-ap arch-ap-gr-u" id="archPgrU"></div>
+          <div class="arch-ap arch-ap-gr-d" id="archPgrD"></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /arch-canvas -->
+
+  <div class="arch-status" id="archStatus">
+    <div class="arch-sdot" id="archDot"></div>
+    <span id="archStatusText">Use ◀ Next ▶ to step through layers, or Animate for the full flow</span>
+  </div>
+</div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════ SECTION 2: USER FLOWS ══════════ -->
+<section class="section" id="flows">
+<div class="section-inner">
+  <div class="section-head">
+    <div class="section-eyebrow">Role-Aware System Flows</div>
+    <div class="section-title">How It Works — 4 User Flows</div>
+    <div class="section-sub">Select a user type to walk through how their request travels across every layer of the platform, step by step.</div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="seq-tabs" id="seqTabBar">
+    <button class="seq-tab" id="stab-student" onclick="seqSwitchFlow('student')">
+      <span class="seq-tab-icon">👨‍🎓</span>
+      <div><div class="seq-tab-name">Student Learning</div><div class="seq-tab-sub">Question &amp; exercise</div></div>
+    </button>
+    <button class="seq-tab" id="stab-teacher" onclick="seqSwitchFlow('teacher')">
+      <span class="seq-tab-icon">👩‍🏫</span>
+      <div><div class="seq-tab-name">Teacher Copilot</div><div class="seq-tab-sub">Lesson &amp; worksheet</div></div>
+    </button>
+    <button class="seq-tab" id="stab-parent" onclick="seqSwitchFlow('parent')">
+      <span class="seq-tab-icon">👨‍👩‍👦</span>
+      <div><div class="seq-tab-name">Parent Guidance</div><div class="seq-tab-sub">Progress &amp; support</div></div>
+    </button>
+    <button class="seq-tab" id="stab-admin" onclick="seqSwitchFlow('admin')">
+      <span class="seq-tab-icon">🏫</span>
+      <div><div class="seq-tab-name">School Admin</div><div class="seq-tab-sub">Cohort &amp; governance</div></div>
+    </button>
+  </div>
+
+  <!-- Controls -->
+  <div class="seq-controls">
+    <span class="seq-flow-badge" id="seqBadge">👨‍🎓 Student Learning</span>
+    <button class="seq-btn seq-btn-p" id="seqBtnPlay" onclick="seqTogglePlay()">▶ Play</button>
+    <button class="seq-btn seq-btn-s" id="seqBtnPrev" onclick="seqStepBack()" disabled>◀ Back</button>
+    <button class="seq-btn seq-btn-s" id="seqBtnNext" onclick="seqStepFwd()">Next ▶</button>
+    <button class="seq-btn seq-btn-s" onclick="seqReset()">↺ Reset</button>
+    <div class="seq-speed">Speed:<input type="range" id="seqSpeed" min="200" max="2200" step="100" value="850" oninput="seqUpdateSpeed()"><span id="seqSpeedLbl">0.9s</span></div>
+    <div class="seq-badge-wrap">Step <span id="seqCur">0</span>/<span id="seqTot">—</span></div>
+  </div>
+
+  <div class="seq-outer"><svg id="seqSvg" xmlns="http://www.w3.org/2000/svg"></svg></div>
+  <div class="seq-status" id="seqStatus">Select a flow above, then press Play or Next</div>
+  <div id="seqDetail"></div>
+  <div class="seq-legend">
+    <div class="seq-li"><div class="seq-ll" style="background:#555"></div>Synchronous call</div>
+    <div class="seq-li"><div class="seq-ld"></div>Return / response</div>
+    <div class="seq-li"><div class="seq-ll" style="background:#1a8040"></div>Approved path</div>
+    <div class="seq-li"><div class="seq-ll" style="background:#c04000"></div>Blocked / revised</div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer">
+  <div class="footer-logo"><span>JiaU</span>.ai</div>
+  <strong>AI-powered Education Platform</strong><br>
+  Role-aware · Pedagogically grounded · Governance-first · Safe by design<br>
+  <span style="opacity:0.4;font-size:0.68rem;">Experience Layer → Orchestration → Decision Intelligence → RAG → Model → Safety → Analytics → Data</span>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════════════
+// NAV ACTIVE STATE
+// ══════════════════════════════════════════════════════
+function setActive(el){
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  el.classList.add('active');
+}
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id = e.target.id;
+      document.querySelectorAll('.nav-link').forEach(l=>{
+        l.classList.toggle('active', l.getAttribute('href')==='#'+id);
+      });
+    }
+  });
+},{threshold:0.3});
+['hero','architecture','flows'].forEach(id=>{const el=document.getElementById(id);if(el)observer.observe(el);});
+
+// ══════════════════════════════════════════════════════
+// ARCHITECTURE ANIMATION
+// ══════════════════════════════════════════════════════
+const ARCH_LAYERS = 8, ARCH_PS = 5;
+const ARCH_DESC = [
+  'A user opens the app — the Experience Layer renders their personalised dashboard.',
+  'The Super Agent validates identity, classifies intent, and routes the request.',
+  'Decision Intelligence models the learner\'s state and selects the pedagogical strategy.',
+  'RAG retrieves curriculum content and assembles the context-rich prompt.',
+  'The Model Layer generates an educationally grounded, personalised response.',
+  'Safety & Governance filters the output for safety, age-appropriateness, and accuracy.',
+  'Analytics logs the interaction and updates the learner\'s mastery model.',
+  'The Data Layer persists updated profiles, logs, and knowledge vectors.',
+];
+
+let archPlaying=false, archTimeouts=[], archCur=-1;
+function archClearTO(){archTimeouts.forEach(clearTimeout);archTimeouts=[];}
+function archDelay(ms){return new Promise(r=>{archTimeouts.push(setTimeout(r,ms));});}
+
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.arch-layer').forEach((el,i)=>{
+    archTimeouts.push(setTimeout(()=>el.classList.add('visible'),100+i*110));
+  });
+});
+
+function archSetStatus(txt,active){
+  document.getElementById('archStatusText').textContent=txt;
+  document.getElementById('archDot').className='arch-sdot'+(active?' active':'');
+}
+
+function archRefreshNavBtns(){
+  document.getElementById('archBtnPrev').disabled = archPlaying || archCur<=0;
+  document.getElementById('archBtnNext').disabled = archPlaying || archCur>=ARCH_LAYERS-1;
+  document.getElementById('archBtnPlay').disabled = archPlaying;
+}
+
+// Activate a layer: highlight, update status (detail panel expands via CSS)
+function archActivateLayer(i, autoTip){
+  const layer=document.getElementById('al-'+i), icon=document.getElementById('ai-'+i);
+  if(layer) layer.classList.add('active-layer');
+  if(icon)  icon.classList.add('active');
+  archSetStatus('Layer '+(i+1)+'/8 — '+ARCH_DESC[i], true);
+  if(autoTip && layer){
+    layer.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+}
+
+// Deactivate a layer: remove highlight, clear pipeline steps, hide tooltip
+function archDeactivateLayer(i){
+  const layer=document.getElementById('al-'+i), icon=document.getElementById('ai-'+i);
+  if(layer) layer.classList.remove('active-layer');
+  if(icon)  icon.classList.remove('active');
+  if(i===2){
+    for(let s=0;s<ARCH_PS;s++){
+      const p=document.getElementById('ap-'+s);
+      if(p) p.classList.remove('active-step','shimmer-active');
+    }
+  }
+}
+
+// Animate pipeline steps within Decision Intelligence layer
+async function archAnimatePipeline(fast){
+  const delay=fast?200:320;
+  for(let s=0;s<ARCH_PS;s++){
+    const ps=document.getElementById('ap-'+s);
+    if(ps) ps.classList.add('active-step','shimmer-active');
+    await archDelay(delay);
+    if(s>0){const prev=document.getElementById('ap-'+(s-1));if(prev)prev.classList.remove('active-step','shimmer-active');}
+  }
+  await archDelay(fast?100:200);
+  const last=document.getElementById('ap-'+(ARCH_PS-1));
+  if(last) last.classList.remove('active-step','shimmer-active');
+}
+
+function archReset(){
+  archClearTO(); archPlaying=false; archCur=-1;
+  document.getElementById('archBtnPlay').disabled=false;
+  for(let i=0;i<ARCH_LAYERS;i++){
+    const l=document.getElementById('al-'+i), ic=document.getElementById('ai-'+i);
+    if(l) l.classList.remove('active-layer');
+    if(ic) ic.classList.remove('active');
+    const fp=document.getElementById('af-'+i);
+    if(fp){fp.style.animation='none';fp.style.opacity=0;}
+  }
+  for(let i=0;i<ARCH_PS;i++){const p=document.getElementById('ap-'+i);if(p)p.classList.remove('active-step','shimmer-active');}
+  ['archPor','archPgrU','archPgrD'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.animation='none';});
+  archSetStatus('Use ◀ Next ▶ to step through layers, or Animate for the full flow',false);
+  archRefreshNavBtns();
+}
+
+// Manual step navigation
+function archNav(dir){
+  if(archPlaying) return;
+  archClearTO();
+  const prev=archCur;
+  // Deactivate previous layer
+  if(prev>=0) archDeactivateLayer(prev);
+  // Calculate new index (first Next from -1 starts at 0)
+  const newIdx = prev<0 ? 0 : Math.max(0, Math.min(ARCH_LAYERS-1, prev+dir));
+  archCur=newIdx;
+  // Fire downward particle if going forward
+  if(dir>0 && prev>=0 && prev<ARCH_LAYERS-1){
+    const fp=document.getElementById('af-'+prev);
+    if(fp){fp.style.animation='none';fp.offsetHeight;fp.style.animation='archFlow 0.5s ease forwards';}
+  }
+  // Activate new layer + show tooltip
+  archActivateLayer(newIdx, true);
+  // If Decision Intelligence layer, step through pipeline too
+  if(newIdx===2){
+    archTimeouts.push(setTimeout(async()=>{
+      await archAnimatePipeline(true);
+    },300));
+  }
+  archRefreshNavBtns();
+}
+
+async function archStartFlow(){
+  if(archPlaying) return;
+  archPlaying=true;
+  // Deactivate any manual selection
+  if(archCur>=0){ archDeactivateLayer(archCur); archCur=-1; }
+  archRefreshNavBtns();
+  archReset(); // clears archPlaying — so re-set it
+  archPlaying=true;
+  document.getElementById('archBtnPlay').disabled=true;
+  document.getElementById('archBtnPrev').disabled=true;
+  document.getElementById('archBtnNext').disabled=true;
+  await archDelay(100);
+  for(let i=0;i<ARCH_LAYERS;i++){
+    archActivateLayer(i, true);
+    if(i===2) await archAnimatePipeline(false);
+    await archDelay(1600);
+    if(i<ARCH_LAYERS-1){
+      const fp=document.getElementById('af-'+i);
+      fp.style.animation='none';fp.offsetHeight;
+      fp.style.animation='archFlow 0.6s ease forwards';
+      await archDelay(640);
+    }
+    archDeactivateLayer(i);
+  }
+  archSetStatus('✅ Response generated — Safety checks passed, delivering to user…',true);
+  const por=document.getElementById('archPor');
+  por.style.animation='none';por.offsetHeight;por.style.animation='archPartUp 2.2s ease forwards';
+  await archDelay(2300);
+  archSetStatus('📈 Bidirectional Learning Feedback — Mastery updated, curriculum loop reinforced',true);
+  const pgu=document.getElementById('archPgrU'),pgd=document.getElementById('archPgrD');
+  pgu.style.animation='none';pgu.offsetHeight;pgd.style.animation='none';pgd.offsetHeight;
+  pgu.style.animation='archPartUp 2.2s ease forwards';
+  pgd.style.animation='archPartDn 2.2s ease 0.3s forwards';
+  await archDelay(2600);
+  archSetStatus('✨ Flow complete — personalised, safe, curriculum-aligned response delivered.',false);
+  archPlaying=false;
+  archRefreshNavBtns();
+}
+
+// ══════════════════════════════════════════════════════
+// SEQUENCE DIAGRAM
+// ══════════════════════════════════════════════════════
+const SEQ_FLOW_META={
+  student:{name:'Student Learning',icon:'👨‍🎓',color:'#1a5799',bg:'#e8f2ff',tabClass:'ast',userLines:['👨‍🎓','Student']},
+  teacher:{name:'Teacher Copilot', icon:'👩‍🏫',color:'#1a6a40',bg:'#e6f5ec',tabClass:'ate',userLines:['👩‍🏫','Teacher']},
+  parent: {name:'Parent Guidance', icon:'👨‍👩‍👦',color:'#5a1a8a',bg:'#f0e8f8',tabClass:'apr',userLines:['👨‍👩‍👦','Parent']},
+  admin:  {name:'School Admin',    icon:'🏫',  color:'#7a4a00',bg:'#fdf0e0',tabClass:'aad',userLines:['🏫','Admin']},
+};
+
+const SEQ_STEPS={
+  student:[
+    {n:1, f:'user', t:'exp',      label:'Submit question / exercise attempt',                        type:'call'},
+    {n:2, f:'exp',  t:'super',    label:'Forward with student context',                              type:'call'},
+    {n:3, f:'super',t:'super',    label:'Validate student role & curriculum scope',                  type:'self'},
+    {n:4, f:'super',t:'rdil',     label:'Send validated request + student role context',             type:'call'},
+    {n:5, f:'rdil', t:'data',     label:'Retrieve learner state',                                    type:'call'},
+    {n:6, f:'data', t:'rdil',     label:'mastery, progress, weak areas, history',                   type:'return'},
+    {n:7, f:'rdil', t:'rdil',     label:'Select explanation / practice mode',                       type:'self'},
+    {n:8, f:'rdil', t:'rdil',     label:'Set personalised difficulty level',                        type:'self'},
+    {n:9, f:'rdil', t:'rdil',     label:'Set hint / scaffolding level',                             type:'self'},
+    {n:10,f:'rdil', t:'prompt',   label:'Send retrieval instructions (topic, difficulty, mode)',    type:'call'},
+    {n:11,f:'prompt',t:'data',    label:'Retrieve curriculum content + worked examples',            type:'call'},
+    {n:12,f:'data', t:'prompt',   label:'Curriculum-aligned content + examples',                   type:'return'},
+    {n:13,f:'prompt',t:'rdil',    label:'Return ranked context bundle',                            type:'return'},
+    {n:14,f:'rdil', t:'prompt',   label:'Send guided teaching directives',                         type:'call'},
+    {n:15,f:'prompt',t:'prompt',  label:'Build guided teaching prompt',                            type:'self'},
+    {n:16,f:'prompt',t:'model',   label:'Submit prompt',                                           type:'call'},
+    {n:17,f:'model',t:'model',    label:'Generate explanation / practice response',                type:'self'},
+    {n:18,f:'model',t:'safety',   label:'Validate content safety & age-appropriateness',           type:'call'},
+    {n:19,f:'safety',t:'exp',     label:'Validated response',                                      type:'return',sec:'approved'},
+    {n:20,f:'exp',  t:'user',     label:'Deliver explanation / practice',                          type:'return',sec:'approved'},
+    {n:21,f:'safety',t:'model',   label:'Request regeneration',                                    type:'call',  sec:'blocked'},
+    {n:22,f:'model',t:'model',    label:'Regenerated response',                                    type:'self',  sec:'blocked'},
+    {n:23,f:'safety',t:'safety',  label:'Validated safe response',                                 type:'self',  sec:'blocked'},
+    {n:24,f:'exp',  t:'user',     label:'Deliver response',                                        type:'return',sec:'blocked'},
+    {n:25,f:'exp',  t:'analytics',label:'Log interaction and outcome',                             type:'call'},
+    {n:26,f:'analytics',t:'data', label:'Update mastery and progress',                             type:'call'},
+    {n:27,f:'data', t:'data',     label:'Persist updated learner state',                           type:'self'},
+  ],
+  teacher:[
+    {n:1, f:'user', t:'exp',      label:'Request worksheet / lesson plan / class insight',         type:'call'},
+    {n:2, f:'exp',  t:'super',    label:'Forward with teacher context',                            type:'call'},
+    {n:3, f:'super',t:'super',    label:'Validate teacher role & class permissions',               type:'self'},
+    {n:4, f:'super',t:'rdil',     label:'Send validated request + teacher role context',           type:'call'},
+    {n:5, f:'rdil', t:'data',     label:'Retrieve class profile & performance clusters',           type:'call'},
+    {n:6, f:'data', t:'rdil',     label:'class data, ability groups, weak areas',                 type:'return'},
+    {n:7, f:'rdil', t:'rdil',     label:'Select lesson-planning / differentiation mode',           type:'self'},
+    {n:8, f:'rdil', t:'rdil',     label:'Adapt output to class ability groups',                   type:'self'},
+    {n:9, f:'rdil', t:'prompt',   label:'Send retrieval instructions (curriculum level, class profile)', type:'call'},
+    {n:10,f:'prompt',t:'data',    label:'Retrieve curriculum materials, examples & assessments',  type:'call'},
+    {n:11,f:'data', t:'prompt',   label:'Curriculum materials + assessments',                     type:'return'},
+    {n:12,f:'prompt',t:'rdil',    label:'Return content bundle',                                  type:'return'},
+    {n:13,f:'rdil', t:'prompt',   label:'Send structured teaching directives',                    type:'call'},
+    {n:14,f:'prompt',t:'prompt',  label:'Build structured lesson-planning prompt',                type:'self'},
+    {n:15,f:'prompt',t:'model',   label:'Submit prompt',                                          type:'call'},
+    {n:16,f:'model',t:'model',    label:'Generate lesson plan / worksheet / insight summary',     type:'self'},
+    {n:17,f:'model',t:'safety',   label:'Policy and safety check',                                type:'call'},
+    {n:18,f:'safety',t:'exp',     label:'Validated output',                                       type:'return',sec:'approved'},
+    {n:19,f:'exp',  t:'user',     label:'Deliver lesson plan / worksheet',                        type:'return',sec:'approved'},
+    {n:20,f:'safety',t:'model',   label:'Request policy-compliant revision',                      type:'call',  sec:'blocked'},
+    {n:21,f:'model',t:'model',    label:'Revised output',                                         type:'self',  sec:'blocked'},
+    {n:22,f:'safety',t:'safety',  label:'Validated output',                                       type:'self',  sec:'blocked'},
+    {n:23,f:'exp',  t:'user',     label:'Deliver revised output',                                 type:'return',sec:'blocked'},
+    {n:24,f:'exp',  t:'analytics',label:'Log teacher usage',                                      type:'call'},
+    {n:25,f:'analytics',t:'data', label:'Update teaching recommendations',                        type:'call'},
+  ],
+  parent:[
+    {n:1, f:'user', t:'exp',      label:"Ask about child's progress / support needed",            type:'call'},
+    {n:2, f:'exp',  t:'super',    label:'Forward with parent context',                            type:'call'},
+    {n:3, f:'super',t:'super',    label:'Validate parent-child access rights',                    type:'self'},
+    {n:4, f:'super',t:'rdil',     label:'Send validated request + parent role context',           type:'call'},
+    {n:5, f:'rdil', t:'data',     label:'Retrieve learner progress, weak areas, recent performance', type:'call'},
+    {n:6, f:'data', t:'rdil',     label:'progress summary, weak areas, performance trends',      type:'return'},
+    {n:7, f:'rdil', t:'rdil',     label:'Select summary + guidance mode',                        type:'self'},
+    {n:8, f:'rdil', t:'rdil',     label:'Determine if alert / recommendation needed',            type:'self'},
+    {n:9, f:'rdil', t:'prompt',   label:'Send retrieval instructions (curriculum expectations, tips)', type:'call'},
+    {n:10,f:'prompt',t:'data',    label:'Retrieve curriculum expectations + support tips',       type:'call'},
+    {n:11,f:'data', t:'prompt',   label:'Curriculum expectations + home support tips',           type:'return'},
+    {n:12,f:'prompt',t:'rdil',    label:'Return guidance bundle',                                type:'return'},
+    {n:13,f:'rdil', t:'prompt',   label:'Send parent-friendly directives',                       type:'call'},
+    {n:14,f:'prompt',t:'prompt',  label:'Build parent-friendly progress prompt',                 type:'self'},
+    {n:15,f:'prompt',t:'model',   label:'Submit prompt',                                         type:'call'},
+    {n:16,f:'model',t:'model',    label:'Generate progress summary + home guidance',             type:'self'},
+    {n:17,f:'model',t:'safety',   label:'Privacy and safety check',                              type:'call'},
+    {n:18,f:'safety',t:'exp',     label:'Validated response',                                    type:'return',sec:'approved'},
+    {n:19,f:'exp',  t:'user',     label:'Deliver progress summary + guidance',                   type:'return',sec:'approved'},
+    {n:20,f:'safety',t:'model',   label:'Request privacy-safe revision',                         type:'call',  sec:'blocked'},
+    {n:21,f:'model',t:'model',    label:'Privacy-compliant response',                            type:'self',  sec:'blocked'},
+    {n:22,f:'safety',t:'safety',  label:'Validated safe response',                               type:'self',  sec:'blocked'},
+    {n:23,f:'exp',  t:'user',     label:'Deliver response',                                      type:'return',sec:'blocked'},
+    {n:24,f:'exp',  t:'analytics',label:'Log parent engagement',                                 type:'call'},
+    {n:25,f:'analytics',t:'data', label:'Update engagement records',                             type:'call'},
+  ],
+  admin:[
+    {n:1, f:'user', t:'exp',      label:'Request cohort performance / governance insight',        type:'call'},
+    {n:2, f:'exp',  t:'super',    label:'Forward with admin context',                             type:'call'},
+    {n:3, f:'super',t:'super',    label:'Validate governance / admin permissions',                type:'self'},
+    {n:4, f:'super',t:'rdil',     label:'Send validated request + admin role context',            type:'call'},
+    {n:5, f:'rdil', t:'data',     label:'Retrieve cohort metrics & school-level performance',     type:'call'},
+    {n:6, f:'data', t:'rdil',     label:'cohort data, intervention trends, performance metrics', type:'return'},
+    {n:7, f:'rdil', t:'rdil',     label:'Select analytics / intervention reporting mode',         type:'self'},
+    {n:8, f:'rdil', t:'rdil',     label:'Identify risk groups & support priorities',              type:'self'},
+    {n:9, f:'rdil', t:'prompt',   label:'Send retrieval instructions (policy, benchmarks, trends)', type:'call'},
+    {n:10,f:'prompt',t:'data',    label:'Retrieve policy rules, benchmarks & trend context',     type:'call'},
+    {n:11,f:'data', t:'prompt',   label:'Policy rules + curriculum benchmarks',                  type:'return'},
+    {n:12,f:'prompt',t:'rdil',    label:'Return analytics bundle',                               type:'return'},
+    {n:13,f:'rdil', t:'prompt',   label:'Send executive-summary directives',                     type:'call'},
+    {n:14,f:'prompt',t:'prompt',  label:'Build executive-summary prompt',                        type:'self'},
+    {n:15,f:'prompt',t:'model',   label:'Submit prompt',                                         type:'call'},
+    {n:16,f:'model',t:'model',    label:'Generate cohort insight summary',                       type:'self'},
+    {n:17,f:'model',t:'safety',   label:'Governance, privacy & policy check',                    type:'call'},
+    {n:18,f:'safety',t:'exp',     label:'Validated governance output',                           type:'return',sec:'approved'},
+    {n:19,f:'exp',  t:'user',     label:'Deliver cohort insights / report',                      type:'return',sec:'approved'},
+    {n:20,f:'safety',t:'model',   label:'Request policy-compliant revision',                     type:'call',  sec:'blocked'},
+    {n:21,f:'model',t:'model',    label:'Revised compliant output',                              type:'self',  sec:'blocked'},
+    {n:22,f:'safety',t:'safety',  label:'Validated governance output',                           type:'self',  sec:'blocked'},
+    {n:23,f:'exp',  t:'user',     label:'Deliver revised report',                                type:'return',sec:'blocked'},
+    {n:24,f:'exp',  t:'analytics',label:'Log admin access & report generation',                  type:'call'},
+    {n:25,f:'analytics',t:'data', label:'Update reporting history',                              type:'call'},
+    {n:26,f:'data', t:'data',     label:'Persist governance audit trail',                        type:'self'},
+  ],
+};
+
+const SEQ_STATUS={
+  student:{1:'① Student submits a question or exercise attempt',2:'② Experience Layer forwards with student context',3:'③ Super Agent validates student role and curriculum scope',4:'④ Validated request sent to Decision Intelligence',5:'⑤ Decision Intelligence retrieves current learner state',6:'⑥ Data Layer returns mastery, progress, weak areas, history',7:'⑦ Selects explanation or practice mode',8:'⑧ Sets the personalised difficulty level',9:'⑨ Sets the hint and scaffolding level',10:'⑩ Sends retrieval instructions to Prompt Orchestration',11:'⑪ Retrieves curriculum content and worked examples',12:'⑫ Data Layer returns curriculum-aligned content',13:'⑬ Ranked context bundle returned to Decision Intelligence',14:'⑭ Guided teaching directives sent to Prompt Orchestration',15:'⑮ Builds the guided teaching prompt',16:'⑯ Final prompt submitted to Model Layer',17:'⑰ Model generates explanation or practice response',18:'⑱ Safety validates content safety and age-appropriateness',19:'⑲ [ALT: Approved] Validated response returned upstream',20:'⑳ Student receives personalised explanation or practice ✓',21:'㉑ [ALT: Blocked] Safety requests regeneration',22:'㉒ Model regenerates the response',23:'㉓ Safety re-validates the response',24:'㉔ Student receives safe response ✓',25:'㉕ Interaction logged to Analytics',26:'㉖ Analytics updates mastery and progress',27:'㉗ Data Layer persists updated learner state ✓'},
+  teacher:{1:'① Teacher requests a worksheet, lesson plan, or class insight',2:'② Experience Layer forwards with teacher context',3:'③ Super Agent validates teacher role and class permissions',4:'④ Validated request sent to Decision Intelligence',5:'⑤ Retrieves class profile and performance clusters',6:'⑥ Data Layer returns class data, ability groups, weak areas',7:'⑦ Selects lesson-planning or differentiation mode',8:'⑧ Adapts output strategy to class ability groups',9:'⑨ Sends retrieval instructions including class profile',10:'⑩ Retrieves curriculum materials, examples, and assessments',11:'⑪ Data Layer returns curriculum materials',12:'⑫ Content bundle returned to Decision Intelligence',13:'⑬ Structured teaching directives sent to Prompt Orchestration',14:'⑭ Builds the structured lesson-planning prompt',15:'⑮ Final prompt submitted to Model Layer',16:'⑯ Model generates lesson plan, worksheet, or insight summary',17:'⑰ Safety performs policy and safety check',18:'⑱ [ALT: Approved] Validated output returned upstream',19:'⑲ Teacher receives lesson plan or worksheet ✓',20:'⑳ [ALT: Blocked] Safety requests policy-compliant revision',21:'㉑ Model produces revised output',22:'㉒ Safety re-validates output',23:'㉓ Teacher receives revised output ✓',24:'㉔ Usage logged to Analytics',25:'㉕ Analytics updates teaching recommendations ✓'},
+  parent:{1:"① Parent asks how their child is doing and what support is needed",2:'② Experience Layer forwards with parent context',3:'③ Super Agent validates parent-child access rights',4:'④ Validated request sent to Decision Intelligence',5:'⑤ Retrieves learner progress, weak areas, recent performance',6:'⑥ Data Layer returns progress summary and trends',7:'⑦ Selects summary and guidance mode',8:'⑧ Determines whether an alert or recommendation is needed',9:'⑨ Sends retrieval instructions for curriculum expectations',10:'⑩ Retrieves curriculum expectations and home support tips',11:'⑪ Data Layer returns curriculum expectations',12:'⑫ Guidance bundle returned to Decision Intelligence',13:'⑬ Parent-friendly directives sent to Prompt Orchestration',14:'⑭ Builds a parent-friendly progress prompt',15:'⑮ Final prompt submitted to Model Layer',16:'⑯ Model generates progress summary and home guidance',17:'⑰ Safety performs privacy and safety check',18:'⑱ [ALT: Approved] Validated response returned upstream',19:'⑲ Parent receives progress summary and guidance ✓',20:'⑳ [ALT: Blocked] Safety requests privacy-safe revision',21:'㉑ Model produces privacy-compliant response',22:'㉒ Safety re-validates',23:'㉓ Parent receives safe response ✓',24:'㉔ Engagement logged to Analytics',25:'㉕ Analytics updates engagement records ✓'},
+  admin:{1:'① Admin requests cohort performance or governance insight',2:'② Experience Layer forwards with admin context',3:'③ Super Agent validates governance and admin permissions',4:'④ Validated request sent to Decision Intelligence',5:'⑤ Retrieves cohort metrics and school-level performance',6:'⑥ Data Layer returns cohort data, intervention trends',7:'⑦ Selects analytics and intervention reporting mode',8:'⑧ Identifies risk groups and support priorities',9:'⑨ Sends retrieval instructions for policy and benchmarks',10:'⑩ Retrieves policy rules, benchmarks, and trend context',11:'⑪ Data Layer returns policy rules and benchmarks',12:'⑫ Analytics bundle returned to Decision Intelligence',13:'⑬ Executive-summary directives sent to Prompt Orchestration',14:'⑭ Builds the executive-summary prompt',15:'⑮ Final prompt submitted to Model Layer',16:'⑯ Model generates cohort insight summary',17:'⑰ Safety performs governance, privacy, and policy check',18:'⑱ [ALT: Approved] Validated governance output returned',19:'⑲ Admin receives cohort insights and governance report ✓',20:'⑳ [ALT: Blocked] Safety requests policy-compliant revision',21:'㉑ Model produces revised compliant output',22:'㉒ Safety re-validates governance output',23:'㉓ Admin receives revised report ✓',24:'㉔ Admin access and report generation logged',25:'㉕ Analytics updates reporting history',26:'㉖ Data Layer persists governance audit trail ✓'},
+};
+
+// Sequence layout constants
+const SVG_W=1300,HDR_H=118,BOX_H=76,BOX_W=118,ROW_H=40,SELF_H=48,SELF_W=42,ALT_P=10;
+const NS='http://www.w3.org/2000/svg';
+function sEl(tag,attrs,txt){const e=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attrs||{}))e.setAttribute(k,v);if(txt!==undefined)e.textContent=txt;return e;}
+
+function seqBuildCols(fk){
+  const m=SEQ_FLOW_META[fk];
+  return[
+    {id:'user',   lines:m.userLines,                              x:72,  fill:m.bg,      border:m.color, tc:m.color},
+    {id:'exp',    lines:['Experience','Layer'],                   x:208, fill:'#daeaf8', border:'#4a9eda',tc:'#1a3a5c'},
+    {id:'super',  lines:['Super Agent /','Orchestration'],        x:360, fill:'#ccddf0', border:'#2d6a9f',tc:'#1a3a5c'},
+    {id:'rdil',   lines:['Role-Aware','Decision','Intelligence'], x:524, fill:'#bdd1e8', border:'#1a5a8c',tc:'#0e2a4a'},
+    {id:'prompt', lines:['Prompt Orchestration','(incl. RAG)'],   x:672, fill:'#daeaf8', border:'#4a9eda',tc:'#1a3a5c'},
+    {id:'model',  lines:['Model','Layer'],                        x:808, fill:'#d0dcf5', border:'#3a5ab8',tc:'#1a2860'},
+    {id:'safety', lines:['Safety &','Governance'],                x:938, fill:'#fde0cc', border:'#d4700a',tc:'#8a3000'},
+    {id:'analytics',lines:['Analytics &','Feedback'],             x:1072,fill:'#d0eed8', border:'#2e8b57',tc:'#1a5030'},
+    {id:'data',   lines:['Data','Layer'],                         x:1200,fill:'#ece0d0', border:'#8b6010',tc:'#5c3010'},
+  ];
+}
+
+function seqLayout(steps){
+  let y=HDR_H+18;
+  steps.forEach(s=>{
+    s.y=y;
+    y+=(s.type==='self'?SELF_H:ROW_H);
+    const appLast=steps.filter(x=>x.sec==='approved').at(-1);
+    const blkLast=steps.filter(x=>x.sec==='blocked').at(-1);
+    const appFirst=steps.find(x=>x.sec==='approved');
+    if(appFirst&&s.n===appFirst.n-1)y+=ALT_P+14;
+    if(appLast&&s.n===appLast.n&&steps.find(x=>x.sec==='blocked'))y+=ALT_P+8;
+    if(blkLast&&s.n===blkLast.n)y+=ALT_P+12;
+  });
+  return y+80;
+}
+
+let seqCols,seqCM,seqFlowKey,seqSteps,seqCur=-1,seqPlaying=false,seqTimer=null,seqSpd=850;
+
+function seqRender(fk){
+  seqFlowKey=fk;
+  seqSteps=SEQ_STEPS[fk].map(s=>({...s}));
+  seqCols=seqBuildCols(fk);
+  seqCM={};seqCols.forEach(c=>seqCM[c.id]=c);
+  const meta=SEQ_FLOW_META[fk];
+  const svgH=seqLayout(seqSteps);
+  const svg=document.getElementById('seqSvg');
+  svg.setAttribute('width',SVG_W);svg.setAttribute('height',svgH);
+  svg.setAttribute('viewBox',`0 0 ${SVG_W} ${svgH}`);
+  svg.innerHTML='';
+  const defs=sEl('defs');
+  const mkF=(id,c)=>{const m=sEl('marker',{id,'markerWidth':'9','markerHeight':'7','refX':'8','refY':'3.5','orient':'auto'});m.appendChild(sEl('polygon',{points:'0 0, 9 3.5, 0 7',fill:c}));return m;};
+  const mkO=(id,c)=>{const m=sEl('marker',{id,'markerWidth':'9','markerHeight':'7','refX':'8','refY':'3.5','orient':'auto'});m.appendChild(sEl('path',{d:'M0,0 L9,3.5 L0,7',fill:'none',stroke:c,'stroke-width':'1.8'}));return m;};
+  defs.appendChild(mkF('sah-call',meta.color));defs.appendChild(mkF('sah-ok','#1a8040'));defs.appendChild(mkF('sah-blk','#c04000'));
+  defs.appendChild(mkO('sah-ret',meta.color));defs.appendChild(mkO('sah-ret-ok','#1a8040'));
+  svg.appendChild(defs);
+  svg.appendChild(sEl('rect',{width:SVG_W,height:svgH,fill:'white'}));
+  seqDrawAlt(svg);
+  const ly=seqSteps.at(-1).y+SELF_H+20;
+  seqCols.forEach(c=>svg.appendChild(sEl('line',{x1:c.x,y1:HDR_H,x2:c.x,y2:ly,stroke:c.border,'stroke-width':'1.5','stroke-dasharray':'7 4',opacity:'0.5'})));
+  seqDrawHdrs(svg,6);seqDrawHdrs(svg,ly+4);
+  const g=sEl('g',{id:'seqStepsG'});
+  seqSteps.forEach(s=>{const sg=sEl('g',{id:'ss'+s.n,opacity:'0'});seqDrawStep(sg,s,meta);g.appendChild(sg);});
+  svg.appendChild(g);
+  document.getElementById('seqTot').textContent=seqSteps.length;
+}
+
+function seqDrawHdrs(svg,ty){
+  seqCols.forEach(c=>{
+    const bx=c.x-BOX_W/2,g=sEl('g',{});
+    g.appendChild(sEl('rect',{x:bx,y:ty,width:BOX_W,height:BOX_H,rx:'8',fill:c.fill,stroke:c.border,'stroke-width':'2'}));
+    const lh=15,tot=c.lines.length*lh,sy=ty+(BOX_H-tot)/2+lh-1;
+    c.lines.forEach((ln,li)=>g.appendChild(sEl('text',{x:c.x,y:sy+li*lh,'text-anchor':'middle','font-size':'11','font-weight':'600',fill:c.tc,'font-family':'Inter,sans-serif'},ln)));
+    svg.appendChild(g);
+  });
+}
+
+function seqDrawAlt(svg){
+  const app=seqSteps.filter(s=>s.sec==='approved'),blk=seqSteps.filter(s=>s.sec==='blocked');
+  if(!app.length)return;
+  const all=[...app,...blk];
+  const minY=Math.min(...all.map(s=>s.y))-ALT_P-14;
+  const maxY=Math.max(...all.map(s=>s.y+(s.type==='self'?SELF_H:ROW_H)))+ALT_P+4;
+  const divY=Math.max(...app.map(s=>s.y+(s.type==='self'?SELF_H:ROW_H)))+ALT_P;
+  const ax=30,aw=SVG_W-60,g=sEl('g',{});
+  g.appendChild(sEl('rect',{x:ax,y:minY,width:aw,height:maxY-minY,rx:'8',fill:'rgba(228,240,255,0.4)',stroke:'#4a9eda','stroke-width':'1.5','stroke-dasharray':'9 5'}));
+  g.appendChild(sEl('rect',{x:ax,y:minY,width:42,height:22,rx:'5',fill:'#4a9eda'}));
+  g.appendChild(sEl('text',{x:ax+21,y:minY+15,'text-anchor':'middle','font-size':'11','font-weight':'800',fill:'white','font-family':'Inter,sans-serif'},'alt'));
+  g.appendChild(sEl('text',{x:ax+52,y:minY+15,'text-anchor':'start','font-size':'11','font-style':'italic',fill:'#1a5a28','font-family':'Inter,sans-serif'},'[Response approved]'));
+  if(blk.length){
+    g.appendChild(sEl('line',{x1:ax,y1:divY,x2:ax+aw,y2:divY,stroke:'#4a9eda','stroke-width':'1.2','stroke-dasharray':'7 4'}));
+    g.appendChild(sEl('text',{x:ax+10,y:divY+14,'text-anchor':'start','font-size':'11','font-style':'italic',fill:'#8a2000','font-family':'Inter,sans-serif'},'[Response blocked or revised]'));
+  }
+  svg.appendChild(g);
+}
+
+function seqStepColor(s,meta){if(s.sec==='approved')return'#1a8040';if(s.sec==='blocked')return'#c04000';return meta.color;}
+function seqAH(s){if(s.sec==='approved')return s.type==='return'?'url(#sah-ret-ok)':'url(#sah-ok)';if(s.sec==='blocked')return'url(#sah-blk)';return s.type==='return'?'url(#sah-ret)':'url(#sah-call)';}
+
+function seqDrawStep(sg,s,meta){
+  const fc=seqCM[s.f],tc=seqCM[s.t],y=s.y,ac=seqStepColor(s,meta),ah=seqAH(s);
+  if(s.type==='self'){
+    const lx=fc.x+3,ly=y+6,lh=SELF_H-14,lw=SELF_W;
+    sg.appendChild(sEl('line',{x1:lx,y1:ly,x2:lx+lw,y2:ly,stroke:ac,'stroke-width':'1.8'}));
+    sg.appendChild(sEl('line',{x1:lx+lw,y1:ly,x2:lx+lw,y2:ly+lh,stroke:ac,'stroke-width':'1.8'}));
+    sg.appendChild(sEl('line',{x1:lx+lw,y1:ly+lh,x2:lx+8,y2:ly+lh,stroke:ac,'stroke-width':'1.8','marker-end':ah}));
+    const tw=Math.min(s.label.length*6.1,270);
+    sg.appendChild(sEl('rect',{x:lx+lw+5,y:ly+lh/2-10,width:tw+6,height:16,rx:'3',fill:'white',opacity:'0.88'}));
+    sg.appendChild(sEl('text',{x:lx+lw+8,y:ly+lh/2+3,'font-size':'11','font-weight':'500',fill:ac,'font-family':'Inter,sans-serif'},s.label));
+  }else{
+    const gr=tc.x>fc.x,x1=fc.x+(gr?14:-14),x2=tc.x+(gr?-14:14),mx=(fc.x+tc.x)/2;
+    sg.appendChild(sEl('line',{x1,y1:y,x2,y2:y,stroke:ac,'stroke-width':s.type==='return'?'1.6':'2','stroke-dasharray':s.type==='return'?'7 4':'none','marker-end':ah}));
+    const tw=Math.min(s.label.length*6,Math.abs(tc.x-fc.x)-22);
+    sg.appendChild(sEl('rect',{x:mx-tw/2-3,y:y-15,width:tw+6,height:15,rx:'3',fill:'white',opacity:'0.9'}));
+    sg.appendChild(sEl('text',{x:mx,y:y-4,'text-anchor':'middle','font-size':'10.5','font-weight':s.type==='return'?'400':'500','font-style':s.type==='return'?'italic':'normal',fill:ac,'font-family':'Inter,sans-serif'},s.label));
+  }
+  const cx=fc.x-16,cy=s.type==='self'?s.y+SELF_H/2:s.y;
+  const cc=s.sec==='approved'?'#1a8040':s.sec==='blocked'?'#c04000':meta.color;
+  sg.appendChild(sEl('circle',{cx,cy,r:'11',fill:cc,stroke:'white','stroke-width':'2'}));
+  sg.appendChild(sEl('text',{x:cx,y:cy+4,'text-anchor':'middle','font-size':'9.5','font-weight':'800',fill:'white','font-family':'Inter,sans-serif'},s.n));
+}
+
+function seqShowStep(idx){
+  if(idx<0||idx>=seqSteps.length)return;
+  const s=seqSteps[idx];const e=document.getElementById('ss'+s.n);
+  if(e){e.style.transition='opacity 0.36s ease';e.setAttribute('opacity','1');}
+  seqCur=idx;
+  document.getElementById('seqCur').textContent=idx+1;
+  document.getElementById('seqStatus').textContent=(SEQ_STATUS[seqFlowKey]||{})[s.n]||'';
+  seqRefreshBtns();
+}
+function seqHideStep(idx){if(idx<0||idx>=seqSteps.length)return;const e=document.getElementById('ss'+seqSteps[idx].n);if(e){e.style.transition='opacity 0.22s ease';e.setAttribute('opacity','0');}}
+function seqStepFwd(){if(seqCur<seqSteps.length-1)seqShowStep(seqCur+1);else seqStopPlay();}
+function seqStepBack(){if(seqCur>=0){seqHideStep(seqCur);seqCur--;}document.getElementById('seqCur').textContent=seqCur<0?0:seqCur+1;if(seqCur>=0)document.getElementById('seqStatus').textContent=(SEQ_STATUS[seqFlowKey]||{})[seqSteps[seqCur].n]||'';else document.getElementById('seqStatus').textContent='Select a flow above, then press Play or Next';seqRefreshBtns();}
+function seqTogglePlay(){seqPlaying?seqStopPlay():seqStartPlay();}
+function seqStartPlay(){seqPlaying=true;document.getElementById('seqBtnPlay').innerHTML='⏸ Pause';seqStepFwd();seqTimer=setInterval(()=>{if(seqCur<seqSteps.length-1)seqStepFwd();else seqStopPlay();},seqSpd);}
+function seqStopPlay(){seqPlaying=false;clearInterval(seqTimer);document.getElementById('seqBtnPlay').innerHTML='▶ Play';seqRefreshBtns();}
+function seqReset(){seqStopPlay();if(seqSteps)seqSteps.forEach(s=>{const e=document.getElementById('ss'+s.n);if(e){e.style.transition='none';e.setAttribute('opacity','0');}});seqCur=-1;document.getElementById('seqCur').textContent='0';document.getElementById('seqStatus').textContent='Select a flow above, then press Play or Next';seqRefreshBtns();}
+function seqRefreshBtns(){document.getElementById('seqBtnPrev').disabled=seqCur<=0;document.getElementById('seqBtnNext').disabled=!seqSteps||seqCur>=seqSteps.length-1;}
+function seqUpdateSpeed(){seqSpd=parseInt(document.getElementById('seqSpeed').value);document.getElementById('seqSpeedLbl').textContent=(seqSpd/1000).toFixed(1)+'s';if(seqPlaying){clearInterval(seqTimer);seqTimer=setInterval(()=>{if(seqCur<seqSteps.length-1)seqStepFwd();else seqStopPlay();},seqSpd);}}
+
+function seqSwitchFlow(fk){
+  seqStopPlay();seqCur=-1;
+  document.querySelectorAll('.seq-tab').forEach(t=>t.className='seq-tab');
+  const tab=document.getElementById('stab-'+fk);
+  if(tab){const m=SEQ_FLOW_META[fk];tab.classList.add(m.tabClass);}
+  const meta=SEQ_FLOW_META[fk];
+  const badge=document.getElementById('seqBadge');
+  badge.textContent=meta.icon+' '+meta.name;
+  badge.style.background=meta.bg;badge.style.color=meta.color;badge.style.borderColor=meta.color;
+  document.documentElement.style.setProperty('--seq-color',meta.color);
+  document.documentElement.style.setProperty('--seq-bg',meta.bg);
+  seqRender(fk);
+  document.getElementById('seqCur').textContent='0';
+  document.getElementById('seqStatus').textContent='Flow loaded — press Play or Next to begin';
+  seqRefreshBtns();
+}
+
+// Init
+window.addEventListener('load',()=>{ seqSwitchFlow('student'); });
+
+// ══════════════════════════════════════════════════════
+// TOOLTIP SYSTEM
+// ══════════════════════════════════════════════════════
+
+const ARCH_TIPS = {
+  'l0':{
+    title:'Experience Layer',
+    purpose:'Provides role-specific user interfaces for all platform stakeholders — students, teachers, parents, and school administrators.',
+    sections:[
+      {lbl:'How it works',txt:'Users interact via web apps or dashboards. Inputs (queries, actions) are captured and forwarded to the orchestration layer. Outputs (AI responses, insights) are rendered back in the UI.'},
+      {lbl:'Users',txt:'Student · Teacher · Parent · School Administrator'},
+    ],
+    tech:'React / Next.js (web apps) · Power BI (analytics dashboards)'
+  },
+  'l1':{
+    title:'Super Agent / Orchestration Layer',
+    purpose:'Acts as the control plane, governing every incoming request before any processing begins.',
+    sections:[
+      {lbl:'How it works',txt:'Validates identity & role → Determines intent → Checks curriculum alignment → Applies policy constraints → Routes to the appropriate processing path.'},
+      {lbl:'Key components',txt:'Identity & Role Validation · Role Context Engine · Intent Classification · Curriculum Control Engine · Policy & Permission Checks · Agent Routing'},
+    ],
+    tech:'LangGraph (agent orchestration) · Microsoft Entra ID / Auth0 (identity & access)'
+  },
+  'l2':{
+    title:'Role-Aware Decision Intelligence Layer',
+    purpose:'Determines learning strategy, personalisation, and support level before invoking GenAI — the key architectural differentiator of JiaU.ai.',
+    sections:[
+      {lbl:'How it works',txt:'Evaluates learner state → Selects instructional strategy (explain, quiz, remediate, challenge) → Adapts difficulty & progression → Controls scaffolding level → Triggers interventions when needed.'},
+      {lbl:'Role-aware behaviour',txt:'Students → adaptive learning · Teachers → lesson planning & insights · Parents → progress & guidance · Admins → analytics & oversight'},
+    ],
+    note:'Unlike conventional GenAI systems, the model is NOT the primary decision-maker. This layer determines what and how to teach first.',
+    tech:'Python decision engine · Rules engine / business logic · Optional ML for learner state prediction'
+  },
+  'l3':{
+    title:'RAG + Prompt Orchestration Layer',
+    purpose:'Ensures all generation is grounded in trusted, curriculum-aligned educational content.',
+    sections:[
+      {lbl:'How it works',txt:'Retrieves curriculum content, question banks & worked examples based on RDIL directives. Filters by grade level, relevance & syllabus alignment. Assembles a structured prompt combining role context, learner state, pedagogy rules & safety constraints.'},
+    ],
+    tech:'Azure AI Search (vector + keyword retrieval) · Prompt orchestration framework'
+  },
+  'l4':{
+    title:'Model Layer',
+    purpose:'Performs controlled content generation — acting as an execution engine, not an autonomous decision-maker.',
+    sections:[
+      {lbl:'How it works',txt:'Receives a fully structured prompt from the orchestration layer. Generates a response within defined constraints. Does NOT independently decide strategy, retrieve knowledge, or control pedagogy.'},
+    ],
+    note:'The model executes instructions rather than making autonomous decisions, ensuring controlled and predictable behaviour.',
+    tech:'Azure OpenAI (GPT models + embeddings)'
+  },
+  'l5':{
+    title:'Safety & Governance Layer',
+    purpose:'Ensures all outputs are safe, compliant, and appropriate before delivery to any user.',
+    sections:[
+      {lbl:'Checks performed',txt:'Age appropriateness · Policy compliance · Hallucination detection · Content safety screening'},
+      {lbl:'How it works',txt:'Filters model outputs → Applies safety rules and policies → Detects hallucinations or unsafe responses → Blocks or triggers regeneration of non-compliant content.'},
+    ],
+    tech:'Azure AI Content Safety · Custom policy enforcement logic'
+  },
+  'l6':{
+    title:'Analytics & Feedback Loop',
+    purpose:'Enables continuous learning and system improvement through closed-loop feedback from every interaction.',
+    sections:[
+      {lbl:'How it works',txt:'Captures user interactions, response quality & engagement patterns. Updates mastery and performance metrics. Feeds signals back into the Decision Intelligence layer.'},
+      {lbl:'Feeds back into',txt:'Learner State Model · Personalisation Engine'},
+    ],
+    tech:'Power BI (visual analytics dashboards) · Application telemetry & logging'
+  },
+  'l7':{
+    title:'Data Layer',
+    purpose:'Provides the foundational data infrastructure for all platform operations and AI functions.',
+    sections:[
+      {lbl:'How it works',txt:'Stores structured and unstructured data. Supports both transactional queries and vector similarity search. Maintains learner profiles, interaction history, and curriculum content.'},
+    ],
+    tech:'PostgreSQL (transactional data) · pgvector (vector similarity search)'
+  },
+  'ap-0':{
+    title:'Learner State Model',
+    purpose:'Builds a real-time picture of each student\'s current learning state before any strategy is selected.',
+    sections:[
+      {lbl:'What it analyses',txt:'Current mastery level across topics · Past errors and misconceptions · Learning progress and engagement trends'},
+      {lbl:'Output',txt:'A structured understanding of where the learner is — passed to the Instructional Strategy Engine.'},
+    ]
+  },
+  'ap-1':{
+    title:'Instructional Strategy Engine',
+    purpose:'Selects the most appropriate teaching method for the learner\'s current state and context.',
+    sections:[
+      {lbl:'Strategies available',txt:'Explanation · Guided learning · Practice-based reinforcement · Remediation · Challenge mode'},
+      {lbl:'Output',txt:'A teaching approach directive that shapes what kind of response the model will generate.'},
+    ]
+  },
+  'ap-2':{
+    title:'Adaptive Personalisation Engine',
+    purpose:'Determines the optimal next learning step — personalised to this specific student in this specific moment.',
+    sections:[
+      {lbl:'What it determines',txt:'Topic focus (gap or progression) · Appropriate difficulty level · Progression path (advance or revisit)'},
+      {lbl:'Output',txt:'Personalised learning parameters passed downstream to the Prompt Orchestration layer.'},
+    ]
+  },
+  'ap-3':{
+    title:'Pedagogical Scaffolding Engine',
+    purpose:'Controls the level of support provided, ensuring productive struggle without frustration.',
+    sections:[
+      {lbl:'Scaffolding levels',txt:'Hint-based guidance → Step-by-step explanation → Partial solution → Full explanation'},
+      {lbl:'Output',txt:'A scaffolding directive that directly shapes how much guidance the model provides in its response.'},
+    ]
+  },
+  'ap-4':{
+    title:'Intervention & Recommendation Engine',
+    purpose:'Monitors for patterns that require human attention or additional support beyond the AI response.',
+    sections:[
+      {lbl:'Triggers',txt:'Persistent misconceptions · Disengagement patterns · Performance drops below threshold'},
+      {lbl:'Actions available',txt:'Teacher notification · Parent guidance · Additional practice assignment · Escalation alert'},
+    ]
+  }
+};
+
+// Per-step detail descriptions for the sequence diagram (student flow as primary, shared logic for others)
+const SEQ_DETAIL={
+  student:{
+    1:'The student types a question or submits an exercise attempt through the JiaU.ai web interface. This is the entry point of every AI-assisted learning interaction.',
+    2:'The Experience Layer enriches the request with the student\'s session context — subject, grade level, and UI state — before forwarding it to the orchestration layer.',
+    3:'The Super Agent authenticates the student\'s identity, confirms their role, and verifies that the topic requested is within the student\'s permitted curriculum scope. Requests outside scope are blocked here.',
+    4:'The validated request, now carrying the student\'s full role context, is dispatched to the Role-Aware Decision Intelligence Layer for pedagogical analysis.',
+    5:'The RDIL queries the Data Layer for this student\'s complete learning history — what they have studied, where they struggled, and how they have been progressing.',
+    6:'The Data Layer returns mastery scores, recent error patterns, historical weak areas, and past interaction history to inform the personalisation decision.',
+    7:'RDIL decides whether to explain a new concept, provide practice, or remediate a misconception — based on the learner\'s current state, not a generic curriculum sequence.',
+    8:'RDIL calibrates the difficulty level so the task sits in the student\'s "zone of proximal development" — challenging enough to stretch, not so hard it causes frustration.',
+    9:'RDIL sets how much scaffolding to provide: just a hint, a step-by-step guide, a partial solution, or a full worked example — depending on the student\'s needs.',
+    10:'RDIL sends precise retrieval instructions to the Prompt Orchestration layer, specifying topic, difficulty, and teaching mode so only relevant content is retrieved.',
+    11:'The Prompt Layer queries the curriculum knowledge base, question banks, and worked example repository using both vector search and keyword retrieval.',
+    12:'The Data Layer returns curriculum-aligned explanations, worked examples, and practice questions that match the grade level, topic, and difficulty specified.',
+    13:'The retrieved content is ranked by relevance and curriculum alignment, then returned to RDIL for review before prompt construction.',
+    14:'RDIL sends structured teaching directives to the Prompt Layer — specifying the instructional strategy, scaffolding level, and learner context to embed in the prompt.',
+    15:'The Prompt Layer assembles a controlled, context-rich prompt combining: role context, learner state, instructional strategy, scaffolding instructions, retrieved curriculum content, and safety constraints.',
+    16:'The fully structured prompt is submitted to the Model Layer. The model has no autonomy here — it executes within the boundaries defined upstream.',
+    17:'The model generates a pedagogically guided explanation or practice response. It follows the scaffolding level, teaching strategy, and content boundaries set by the orchestration layers.',
+    18:'Before delivery, the Safety Layer validates the generated content for age appropriateness, policy compliance, accuracy, and absence of hallucinated facts.',
+    19:'[Approved path] The validated, safe response travels back up the stack through the Experience Layer to the student\'s interface.',
+    20:'The student receives a personalised, curriculum-aligned explanation or practice exercise — tailored to their learning state. ✓',
+    21:'[Blocked path] The Safety Layer detects a policy violation, inappropriate content, or hallucination and requests the Model Layer to regenerate.',
+    22:'The model produces a new response using the same structured prompt. The regeneration loop runs up to a defined retry limit.',
+    23:'The Safety Layer re-validates the regenerated response against all safety and policy rules before allowing it to proceed.',
+    24:'The student receives the revised, validated safe response instead of the original blocked content. ✓',
+    25:'The Experience Layer logs the full interaction — question, response, engagement signal, and outcome — to the Analytics Layer.',
+    26:'The Analytics Layer updates the student\'s mastery scores, progress trajectory, and learning patterns in near real time.',
+    27:'The Data Layer persists the updated learner state so it is available as context for the student\'s next interaction. ✓'
+  },
+  teacher:{
+    1:'The teacher requests a worksheet, lesson plan, or class-level insight through the JiaU.ai teacher interface.',
+    2:'The Experience Layer attaches the teacher\'s class context — subject, year group, and current curriculum unit — before forwarding.',
+    3:'The Super Agent verifies the teacher\'s identity, role, and that they have permission to access the requested class data.',
+    4:'Validated request with teacher role context dispatched to the Decision Intelligence Layer for pedagogical analysis.',
+    5:'RDIL retrieves performance data for the entire class — identifying ability groups, common weak areas, and class-wide trends.',
+    6:'The Data Layer returns class profiles, ability group clusters, and aggregated weak areas to inform lesson differentiation.',
+    7:'RDIL selects the appropriate mode: lesson planning, worksheet generation, or class insight summary.',
+    8:'RDIL adapts the output strategy to serve the different ability groups in the class, enabling differentiated instruction.',
+    9:'RDIL sends retrieval instructions specifying the curriculum level and class profile so the right materials are retrieved.',
+    10:'The Prompt Layer retrieves curriculum materials, exemplar questions, assessments, and teaching frameworks aligned to the class level.',
+    11:'Data Layer returns the requested curriculum materials and assessment resources.',
+    12:'Content bundle returned to RDIL for review and integration into the teaching directives.',
+    13:'RDIL sends structured lesson-planning directives to the Prompt Layer, specifying format, depth, and differentiation requirements.',
+    14:'The Prompt Layer builds a structured prompt that instructs the model to generate lesson content tailored to the class\'s needs and ability distribution.',
+    15:'Structured prompt submitted to the Model Layer for execution.',
+    16:'The model generates the lesson plan, worksheet, or class insight summary within the defined pedagogical and content constraints.',
+    17:'Safety Layer checks the output for policy compliance, content appropriateness, and alignment with school governance rules.',
+    18:'[Approved path] Validated output returned upstream through the Experience Layer.',
+    19:'Teacher receives the ready-to-use lesson plan or worksheet. ✓',
+    20:'[Blocked path] Safety requests a policy-compliant revision from the model.',
+    21:'Model produces a revised output that meets policy requirements.',
+    22:'Safety re-validates the revised output.',
+    23:'Teacher receives the revised, compliant output. ✓',
+    24:'Teacher usage and generated artefacts are logged to the Analytics Layer.',
+    25:'Analytics updates teaching recommendations and resource usage data. ✓'
+  },
+  parent:{
+    1:'The parent asks about their child\'s progress, current challenges, or how to provide support at home.',
+    2:'The Experience Layer attaches the parent\'s verified identity and the parent-child relationship context.',
+    3:'The Super Agent validates the parent\'s access rights — confirming they are authorised to view only their own child\'s data.',
+    4:'Validated request with parent role context dispatched to the Decision Intelligence Layer.',
+    5:'RDIL retrieves the child\'s progress data, recent performance, and any flagged weak areas relevant to the parent\'s query.',
+    6:'Data Layer returns progress summaries, performance trends, and identified learning gaps for the parent\'s child.',
+    7:'RDIL selects the appropriate response mode: progress summary, home support guidance, or alert notification.',
+    8:'RDIL determines whether the child\'s situation warrants a proactive recommendation or alert to the parent.',
+    9:'RDIL sends retrieval instructions for curriculum expectations and age-appropriate home support strategies.',
+    10:'Prompt Layer retrieves curriculum benchmarks, grade-level expectations, and practical home support tips.',
+    11:'Data Layer returns the curriculum expectations and support resources.',
+    12:'Guidance bundle returned to RDIL for integration into parent-facing directives.',
+    13:'RDIL sends parent-friendly directives to the Prompt Layer — specifying plain language, no jargon, and a supportive tone.',
+    14:'The Prompt Layer builds a parent-friendly prompt that prioritises clarity, sensitivity, and actionable advice.',
+    15:'Prompt submitted to the Model Layer for generation.',
+    16:'The model generates a progress summary and home support guidance in accessible, non-technical language.',
+    17:'Safety Layer checks for privacy compliance — ensuring only authorised information about the child is disclosed.',
+    18:'[Approved path] Validated response returned upstream.',
+    19:'Parent receives a clear progress summary with actionable home support guidance. ✓',
+    20:'[Blocked path] Safety requests a privacy-safe revision.',
+    21:'Model produces a privacy-compliant response.',
+    22:'Safety re-validates the response.',
+    23:'Parent receives the safe, privacy-compliant response. ✓',
+    24:'Parent engagement and query type logged to Analytics.',
+    25:'Analytics updates parent engagement records and interaction history. ✓'
+  },
+  admin:{
+    1:'The school administrator requests a cohort performance overview, intervention report, or governance insight.',
+    2:'The Experience Layer attaches the admin\'s institutional context and access credentials.',
+    3:'The Super Agent validates admin-level permissions — confirming rights to access school-wide and cohort-level data.',
+    4:'Validated request with admin role context dispatched to the Decision Intelligence Layer.',
+    5:'RDIL retrieves school-level and cohort-level performance metrics, intervention history, and trend data.',
+    6:'Data Layer returns cohort summaries, intervention trends, and performance metrics across year groups.',
+    7:'RDIL selects the appropriate analytics mode: performance dashboard, intervention report, or governance summary.',
+    8:'RDIL identifies at-risk cohorts, underperforming groups, and priority areas for targeted intervention.',
+    9:'RDIL sends retrieval instructions for policy documents, curriculum benchmarks, and comparative trend data.',
+    10:'Prompt Layer retrieves governance policy rules, curriculum benchmarks, and historical trend context.',
+    11:'Data Layer returns the policy rules and benchmark data.',
+    12:'Analytics bundle returned to RDIL for integration into executive-level directives.',
+    13:'RDIL sends executive-summary directives to the Prompt Layer, specifying governance tone and decision-relevant structure.',
+    14:'The Prompt Layer builds an executive-summary prompt designed to produce clear, actionable governance insights.',
+    15:'Prompt submitted to the Model Layer for generation.',
+    16:'The model generates a cohort insight summary formatted for executive and governance use.',
+    17:'Safety Layer performs a full governance, privacy, and policy compliance check on the output.',
+    18:'[Approved path] Validated governance output returned upstream.',
+    19:'Admin receives cohort insights, intervention priorities, and governance report. ✓',
+    20:'[Blocked path] Safety requests a policy-compliant revision.',
+    21:'Model produces a revised, compliant output.',
+    22:'Safety re-validates the governance output.',
+    23:'Admin receives the revised, policy-compliant report. ✓',
+    24:'Admin access event and report generation logged for audit purposes.',
+    25:'Analytics updates the reporting history and usage records.',
+    26:'Data Layer persists the full governance audit trail — required for compliance and oversight. ✓'
+  }
+};
+
+// ── Tooltip card logic ────────────────────────────────
+function tipBuild(t){
+  let h=`<div class="tc-title">${t.title}</div><div class="tc-purpose">${t.purpose}</div>`;
+  if(t.sections)t.sections.forEach(s=>{h+=`<div class="tc-lbl">${s.lbl}</div><div class="tc-items">${s.txt}</div>`;});
+  if(t.note)h+=`<div class="tc-note">${t.note}</div>`;
+  if(t.tech)h+=`<div class="tc-tech">⚙ ${t.tech}</div>`;
+  return h;
+}
+const tipEl=document.createElement('div');tipEl.id='tipCard';document.body.appendChild(tipEl);
+let tipVisible=false;
+function tipShow(id,rect){
+  const t=ARCH_TIPS[id];if(!t)return;
+  tipEl.innerHTML=tipBuild(t);
+  tipEl.style.display='block';
+  tipEl.style.left='-9999px';tipEl.style.top='-9999px';
+  // Measure actual rendered tooltip size
+  const tw=tipEl.offsetWidth||295,th=tipEl.offsetHeight||300;
+  const vw=window.innerWidth,vh=window.innerHeight,pad=10;
+  // Prefer right of element; if it won't fit try left; else clamp inside viewport
+  let lx=rect.right+pad;
+  if(lx+tw>vw-pad){lx=rect.left-tw-pad;}
+  lx=Math.max(pad,Math.min(lx,vw-tw-pad));
+  // Align top with element; shift up if it overflows bottom
+  let ly=rect.top;
+  if(ly+th>vh-pad){ly=vh-th-pad;}
+  ly=Math.max(pad,ly);
+  tipEl.style.left=lx+'px';tipEl.style.top=ly+'px';
+  requestAnimationFrame(()=>tipEl.classList.add('tc-vis'));
+  tipVisible=true;
+}
+function tipHide(){tipEl.classList.remove('tc-vis');setTimeout(()=>{if(!tipVisible)tipEl.style.display='none';},160);tipVisible=false;}
+
+// Note: arch layers and pipeline steps now use CSS inline expansion (active-layer / active-step)
+// The floating tipCard is kept for any future use but not triggered by architecture elements.
+
+// ── Sequence step detail panel ────────────────────────
+const seqDetailEl=document.getElementById('seqDetail');
+function seqShowDetail(fk,n){
+  const txt=(SEQ_DETAIL[fk]||{})[n];
+  if(!txt){seqDetailEl.classList.remove('sd-vis');return;}
+  seqDetailEl.textContent=txt;
+  seqDetailEl.classList.add('sd-vis');
+}
+function seqHideDetail(){seqDetailEl.classList.remove('sd-vis');}
+
+// Patch seqShowStep to also show detail
+const _origSeqShowStep=seqShowStep;
+seqShowStep=function(idx){
+  _origSeqShowStep(idx);
+  const s=seqSteps[idx];
+  seqShowDetail(seqFlowKey,s.n);
+};
+// Patch seqStepBack to hide/show detail
+const _origSeqStepBack=seqStepBack;
+seqStepBack=function(){
+  _origSeqStepBack();
+  if(seqCur>=0)seqShowDetail(seqFlowKey,seqSteps[seqCur].n);
+  else seqHideDetail();
+};
+// Patch seqReset
+const _origSeqReset=seqReset;
+seqReset=function(){_origSeqReset();seqHideDetail();};
+</script>
+</body>
+</html>
