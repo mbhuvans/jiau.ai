@@ -388,7 +388,7 @@ body{font-family:'Inter',sans-serif;color:var(--text);background:#fff;}
   transition:max-height 0.3s ease,opacity 0.25s ease,margin-top 0.25s ease;
   font-size:0.68rem;color:var(--text-mid);line-height:1.45;
 }
-.active-step .arch-ps-det{max-height:70px;opacity:1;margin-top:5px;}
+.active-step .arch-ps-det{max-height:160px;opacity:1;margin-top:5px;}
 .apd-out{color:var(--blue);font-style:italic;font-weight:500;margin-top:3px;}
 
 /* ══════════ TOOLTIP CARD ══════════ */
@@ -971,14 +971,14 @@ function archDeactivateLayer(i){
 
 // Animate pipeline steps within Decision Intelligence layer
 async function archAnimatePipeline(fast){
-  const delay=fast?200:320;
+  const delay=fast?400:1400;
   for(let s=0;s<ARCH_PS;s++){
     const ps=document.getElementById('ap-'+s);
     if(ps) ps.classList.add('active-step','shimmer-active');
     await archDelay(delay);
     if(s>0){const prev=document.getElementById('ap-'+(s-1));if(prev)prev.classList.remove('active-step','shimmer-active');}
   }
-  await archDelay(fast?100:200);
+  await archDelay(fast?200:600);
   const last=document.getElementById('ap-'+(ARCH_PS-1));
   if(last) last.classList.remove('active-step','shimmer-active');
 }
